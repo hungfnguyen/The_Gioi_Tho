@@ -53,6 +53,19 @@
     <Compile Include="Controller\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\BaiDang.cs" />
+    <Compile Include="Model\BaiDangNguoiDung.cs" />
+    <Compile Include="Model\BaiDangTho.cs" />
+    <Compile Include="Model\CongViec.cs" />
+    <Compile Include="Model\DanhGia.cs" />
+    <Compile Include="Model\DanhMuc.cs" />
+    <Compile Include="Model\DatLich.cs" />
+    <Compile Include="Model\LinhVuc.cs" />
+    <Compile Include="Model\NgayNghi.cs" />
+    <Compile Include="Model\NgayNghiTho.cs" />
+    <Compile Include="Model\NguoiDung.cs" />
+    <Compile Include="Model\NhanViec.cs" />
+    <Compile Include="Model\Tho.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -79,7 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dao\" />
-    <Folder Include="Model\" />
     <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
