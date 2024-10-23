@@ -7,3 +7,16 @@ D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.GenerateRe
 D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.CoreCompileInputs.cache
 D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.exe
 D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.pdb
+E:\DBMS\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.exe.config
+E:\DBMS\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.exe
+E:\DBMS\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.pdb
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.AssemblyReference.cache
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Properties.Resources.resources
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.GenerateResource.cache
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.CoreCompileInputs.cache
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.exe
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.pdb
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.XemTopTho.resources
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.TimKiemTho.resources
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.DanhSachThoYeuThich.resources
+E:\DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.DanhGia.resources
