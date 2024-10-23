@@ -1,0 +1,260 @@
+﻿namespace TheGioiTho.Controller.Tho
+{
+    partial class UC_DangBai
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_DangBai));
+            this.txtDiaChi = new System.Windows.Forms.TextBox();
+            this.txtSoDienThoai = new System.Windows.Forms.TextBox();
+            this.txtTenTho = new System.Windows.Forms.TextBox();
+            this.lblDiaDiemLamViec = new System.Windows.Forms.Label();
+            this.lblSoDienThoai = new System.Windows.Forms.Label();
+            this.lblTenKhachHang = new System.Windows.Forms.Label();
+            this.txtMoTa = new System.Windows.Forms.TextBox();
+            this.txtThoiGianThucHien = new System.Windows.Forms.TextBox();
+            this.txtGiaTien = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDangBai = new System.Windows.Forms.Button();
+            this.cbChonCongViec = new System.Windows.Forms.ComboBox();
+            this.btnQuanLyBaiDang = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // txtDiaChi
+            // 
+            this.txtDiaChi.Location = new System.Drawing.Point(70, 339);
+            this.txtDiaChi.Name = "txtDiaChi";
+            this.txtDiaChi.Size = new System.Drawing.Size(307, 22);
+            this.txtDiaChi.TabIndex = 11;
+            // 
+            // txtSoDienThoai
+            // 
+            this.txtSoDienThoai.Location = new System.Drawing.Point(70, 276);
+            this.txtSoDienThoai.Name = "txtSoDienThoai";
+            this.txtSoDienThoai.Size = new System.Drawing.Size(307, 22);
+            this.txtSoDienThoai.TabIndex = 12;
+            // 
+            // txtTenTho
+            // 
+            this.txtTenTho.Location = new System.Drawing.Point(70, 218);
+            this.txtTenTho.Name = "txtTenTho";
+            this.txtTenTho.Size = new System.Drawing.Size(307, 22);
+            this.txtTenTho.TabIndex = 13;
+            // 
+            // lblDiaDiemLamViec
+            // 
+            this.lblDiaDiemLamViec.AutoSize = true;
+            this.lblDiaDiemLamViec.Location = new System.Drawing.Point(67, 320);
+            this.lblDiaDiemLamViec.Name = "lblDiaDiemLamViec";
+            this.lblDiaDiemLamViec.Size = new System.Drawing.Size(49, 16);
+            this.lblDiaDiemLamViec.TabIndex = 7;
+            this.lblDiaDiemLamViec.Text = "Địa Chỉ";
+            // 
+            // lblSoDienThoai
+            // 
+            this.lblSoDienThoai.AutoSize = true;
+            this.lblSoDienThoai.Location = new System.Drawing.Point(67, 257);
+            this.lblSoDienThoai.Name = "lblSoDienThoai";
+            this.lblSoDienThoai.Size = new System.Drawing.Size(92, 16);
+            this.lblSoDienThoai.TabIndex = 8;
+            this.lblSoDienThoai.Text = "Số Điện Thoại";
+            // 
+            // lblTenKhachHang
+            // 
+            this.lblTenKhachHang.AutoSize = true;
+            this.lblTenKhachHang.Location = new System.Drawing.Point(67, 199);
+            this.lblTenKhachHang.Name = "lblTenKhachHang";
+            this.lblTenKhachHang.Size = new System.Drawing.Size(58, 16);
+            this.lblTenKhachHang.TabIndex = 4;
+            this.lblTenKhachHang.Text = "Tên Thợ";
+            // 
+            // txtMoTa
+            // 
+            this.txtMoTa.Location = new System.Drawing.Point(59, 65);
+            this.txtMoTa.Name = "txtMoTa";
+            this.txtMoTa.Size = new System.Drawing.Size(307, 22);
+            this.txtMoTa.TabIndex = 11;
+            // 
+            // txtThoiGianThucHien
+            // 
+            this.txtThoiGianThucHien.Location = new System.Drawing.Point(59, 186);
+            this.txtThoiGianThucHien.Name = "txtThoiGianThucHien";
+            this.txtThoiGianThucHien.Size = new System.Drawing.Size(307, 22);
+            this.txtThoiGianThucHien.TabIndex = 11;
+            // 
+            // txtGiaTien
+            // 
+            this.txtGiaTien.Location = new System.Drawing.Point(59, 239);
+            this.txtGiaTien.Name = "txtGiaTien";
+            this.txtGiaTien.Size = new System.Drawing.Size(307, 22);
+            this.txtGiaTien.TabIndex = 11;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(70, 16);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(280, 165);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(56, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Mô tả";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(56, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 16);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Chọn Công Việc";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(56, 167);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(129, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Thời Gian Thực Hiện";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(56, 220);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Giá Tiền";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.btnDangBai);
+            this.panel1.Controls.Add(this.cbChonCongViec);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtGiaTien);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.txtThoiGianThucHien);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtMoTa);
+            this.panel1.Location = new System.Drawing.Point(436, 46);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(454, 358);
+            this.panel1.TabIndex = 15;
+            // 
+            // btnDangBai
+            // 
+            this.btnDangBai.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnDangBai.Location = new System.Drawing.Point(59, 291);
+            this.btnDangBai.Name = "btnDangBai";
+            this.btnDangBai.Size = new System.Drawing.Size(307, 36);
+            this.btnDangBai.TabIndex = 13;
+            this.btnDangBai.Text = "Đăng Bài";
+            this.btnDangBai.UseVisualStyleBackColor = false;
+            this.btnDangBai.Click += new System.EventHandler(this.btnDangBai_Click);
+            // 
+            // cbChonCongViec
+            // 
+            this.cbChonCongViec.FormattingEnabled = true;
+            this.cbChonCongViec.Location = new System.Drawing.Point(59, 127);
+            this.cbChonCongViec.Name = "cbChonCongViec";
+            this.cbChonCongViec.Size = new System.Drawing.Size(307, 24);
+            this.cbChonCongViec.TabIndex = 12;
+            this.cbChonCongViec.SelectedIndexChanged += new System.EventHandler(this.cbChonCongViec_SelectedIndexChanged);
+            // 
+            // btnQuanLyBaiDang
+            // 
+            this.btnQuanLyBaiDang.Location = new System.Drawing.Point(915, 59);
+            this.btnQuanLyBaiDang.Name = "btnQuanLyBaiDang";
+            this.btnQuanLyBaiDang.Size = new System.Drawing.Size(271, 36);
+            this.btnQuanLyBaiDang.TabIndex = 16;
+            this.btnQuanLyBaiDang.Text = "Quản Lý Bài Đăng";
+            this.btnQuanLyBaiDang.UseVisualStyleBackColor = true;
+            this.btnQuanLyBaiDang.Click += new System.EventHandler(this.btnQuanLyBaiDang_Click);
+            // 
+            // UC_DangBai
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnQuanLyBaiDang);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.txtDiaChi);
+            this.Controls.Add(this.txtSoDienThoai);
+            this.Controls.Add(this.txtTenTho);
+            this.Controls.Add(this.lblDiaDiemLamViec);
+            this.Controls.Add(this.lblSoDienThoai);
+            this.Controls.Add(this.lblTenKhachHang);
+            this.Name = "UC_DangBai";
+            this.Size = new System.Drawing.Size(1189, 462);
+            this.Load += new System.EventHandler(this.UC_DangBai_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.TextBox txtDiaChi;
+        private System.Windows.Forms.TextBox txtSoDienThoai;
+        private System.Windows.Forms.TextBox txtTenTho;
+        private System.Windows.Forms.Label lblDiaDiemLamViec;
+        private System.Windows.Forms.Label lblSoDienThoai;
+        private System.Windows.Forms.Label lblTenKhachHang;
+        private System.Windows.Forms.TextBox txtMoTa;
+        private System.Windows.Forms.TextBox txtThoiGianThucHien;
+        private System.Windows.Forms.TextBox txtGiaTien;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox cbChonCongViec;
+        private System.Windows.Forms.Button btnDangBai;
+        private System.Windows.Forms.Button btnQuanLyBaiDang;
+    }
+}

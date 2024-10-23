@@ -1,0 +1,23 @@
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.exe.config
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.exe
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.pdb
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.AssemblyReference.cache
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Properties.Resources.resources
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.GenerateResource.cache
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.CoreCompileInputs.cache
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.exe
+D:\Đồ án DBMS\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.pdb
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.AssemblyReference.cache
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Controller.Tho.Form1.resources
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Controller.Tho.UC_TrangChu.resources
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Properties.Resources.resources
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.GenerateResource.cache
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.csproj.CoreCompileInputs.cache
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.exe
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.pdb
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.exe.config
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.exe
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\bin\Debug\TheGioiTho.pdb
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Controller.Tho.UC_DangBai.resources
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Controller.Tho.UC_LichHen.resources
+D:\MonHoc\HeQuanTriCoSoDuLieu\The-Gioi-Tho\The_Gioi_Tho\TheGioiTho\obj\Debug\TheGioiTho.Controller.Tho.Form_QuanLyBaiDang.resources

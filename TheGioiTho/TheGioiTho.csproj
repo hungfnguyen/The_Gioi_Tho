@@ -47,14 +47,71 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\DBConnection.cs" />
-    <Compile Include="Controller\Form1.cs">
+    <Compile Include="Controller\Tho\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controller\Form1.Designer.cs">
+    <Compile Include="Controller\Tho\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\Tho\Form_QuanLyBaiDang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\Form_QuanLyBaiDang.Designer.cs">
+      <DependentUpon>Form_QuanLyBaiDang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_DangBai.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_DangBai.Designer.cs">
+      <DependentUpon>UC_DangBai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_LichHen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_LichHen.Designer.cs">
+      <DependentUpon>UC_LichHen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_TrangChu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_TrangChu.Designer.cs">
+      <DependentUpon>UC_TrangChu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DoAnTheGioiThoDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoAnTheGioiThoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BaiDang.cs" />
+    <Compile Include="Model\BaiDangNguoiDung.cs" />
+    <Compile Include="Model\BaiDangTho.cs" />
+    <Compile Include="Model\CongViec.cs" />
+    <Compile Include="Model\DanhGia.cs" />
+    <Compile Include="Model\DanhMuc.cs" />
+    <Compile Include="Model\DatLich.cs" />
+    <Compile Include="Model\LinhVuc.cs" />
+    <Compile Include="Model\NgayNghi.cs" />
+    <Compile Include="Model\NgayNghiTho.cs" />
+    <Compile Include="Model\NguoiDung.cs" />
+    <Compile Include="Model\NhanViec.cs" />
+    <Compile Include="Model\Tho.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controller\Tho\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\Form_QuanLyBaiDang.resx">
+      <DependentUpon>Form_QuanLyBaiDang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\UC_DangBai.resx">
+      <DependentUpon>UC_DangBai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\UC_LichHen.resx">
+      <DependentUpon>UC_LichHen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\UC_TrangChu.resx">
+      <DependentUpon>UC_TrangChu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -64,6 +121,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DoAnTheGioiThoDataSet.xsc">
+      <DependentUpon>DoAnTheGioiThoDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DoAnTheGioiThoDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DoAnTheGioiThoDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DoAnTheGioiThoDataSet.xss">
+      <DependentUpon>DoAnTheGioiThoDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dao\" />
-    <Folder Include="Model\" />
     <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
