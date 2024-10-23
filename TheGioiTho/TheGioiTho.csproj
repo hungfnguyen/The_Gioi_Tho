@@ -47,12 +47,58 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\DBConnection.cs" />
-    <Compile Include="Controller\Form1.cs">
+    <Compile Include="Controller\UserControl\ChiTietLich.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\UserControl\ChiTietLich.Designer.cs">
+      <DependentUpon>ChiTietLich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Form\DanhGia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controller\Form1.Designer.cs">
+    <Compile Include="Controller\Form\DanhGia.Designer.cs">
+      <DependentUpon>DanhGia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Form\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controller\Form\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\Form\LiDoHuy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controller\Form\LiDoHuy.Designer.cs">
+      <DependentUpon>LiDoHuy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_NoiDungBaiDang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_NoiDungBaiDang.Designer.cs">
+      <DependentUpon>UC_NoiDungBaiDang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_DangBaiTimTho.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_DangBaiTimTho.Designer.cs">
+      <DependentUpon>UC_DangBaiTimTho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_DanhSachBaiDang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_DanhSachBaiDang.Designer.cs">
+      <DependentUpon>UC_DanhSachBaiDang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_QuanLyLich.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\UserControl\UC_QuanLyLich.Designer.cs">
+      <DependentUpon>UC_QuanLyLich.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dao\BaiDangDAO.cs" />
+    <Compile Include="Dao\BaiDangNguoiDungDAO.cs" />
+    <Compile Include="Dao\DanhGiaDao.cs" />
+    <Compile Include="Dao\LichHenDao.cs" />
     <Compile Include="Model\BaiDang.cs" />
     <Compile Include="Model\BaiDangNguoiDung.cs" />
     <Compile Include="Model\BaiDangTho.cs" />
@@ -60,6 +106,8 @@
     <Compile Include="Model\DanhGia.cs" />
     <Compile Include="Model\DanhMuc.cs" />
     <Compile Include="Model\DatLich.cs" />
+    <Compile Include="Model\LichHen.cs" />
+    <Compile Include="Model\LyDoHuy.cs" />
     <Compile Include="Model\LinhVuc.cs" />
     <Compile Include="Model\NgayNghi.cs" />
     <Compile Include="Model\NgayNghiTho.cs" />
@@ -68,6 +116,30 @@
     <Compile Include="Model\Tho.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controller\UserControl\ChiTietLich.resx">
+      <DependentUpon>ChiTietLich.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Form\DanhGia.resx">
+      <DependentUpon>DanhGia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Form\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Form\LiDoHuy.resx">
+      <DependentUpon>LiDoHuy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\UserControl\UC_NoiDungBaiDang.resx">
+      <DependentUpon>UC_NoiDungBaiDang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\UserControl\UC_DangBaiTimTho.resx">
+      <DependentUpon>UC_DangBaiTimTho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\UserControl\UC_DanhSachBaiDang.resx">
+      <DependentUpon>UC_DanhSachBaiDang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\UserControl\UC_QuanLyLich.resx">
+      <DependentUpon>UC_QuanLyLich.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -91,7 +163,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dao\" />
     <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
