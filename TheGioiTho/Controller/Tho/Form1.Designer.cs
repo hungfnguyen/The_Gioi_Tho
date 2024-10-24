@@ -101,14 +101,14 @@
             // 
             this.panel1.Location = new System.Drawing.Point(12, 57);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1189, 462);
+            this.panel1.Size = new System.Drawing.Size(1215, 607);
             this.panel1.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1239, 564);
+            this.ClientSize = new System.Drawing.Size(1239, 667);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnTaiKhoan);
             this.Controls.Add(this.btnThongKe);
@@ -117,7 +117,9 @@
             this.Controls.Add(this.btnDangBai);
             this.Controls.Add(this.btnTrangChu);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

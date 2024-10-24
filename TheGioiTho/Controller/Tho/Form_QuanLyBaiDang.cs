@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheGioiTho.Config;
 
 namespace TheGioiTho.Controller.Tho
 {
@@ -31,7 +32,7 @@ namespace TheGioiTho.Controller.Tho
         private DataTable LayDanhSachBaiDang()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = DBConnection.GetConnection())
             {
                 try
                 {
@@ -68,7 +69,7 @@ namespace TheGioiTho.Controller.Tho
 
         private void XoaBaiDang(int idBaiDang)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = DBConnection.GetConnection())
             {
                 try
                 {

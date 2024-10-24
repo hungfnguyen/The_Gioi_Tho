@@ -15,10 +15,15 @@ namespace TheGioiTho.Controller.Tho
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void btnDanhGia_Click(object sender, EventArgs e)
         {
+            UC_XemDanhGia ucDanhGia = new UC_XemDanhGia();
+            ucDanhGia.Dock = DockStyle.Fill; // Để UC phủ toàn bộ Form
+            panel1.Controls.Clear(); // Xóa các control trước đó
+            panel1.Controls.Add(ucDanhGia);
 
         }
 
@@ -48,12 +53,23 @@ namespace TheGioiTho.Controller.Tho
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-
+            UC_ThongKe ucThongKe = new UC_ThongKe();
+            ucThongKe.Dock = DockStyle.Fill; // Để UC phủ toàn bộ Form
+            panel1.Controls.Clear(); // Xóa các control trước đó
+            panel1.Controls.Add(ucThongKe); // Thêm UC vào panel
         }
 
         private void btnTaiKhoan_Click(object sender, EventArgs e)
         {
+            UC_TaiKhoan ucTaiKhoan = new UC_TaiKhoan();
+            ucTaiKhoan.Dock = DockStyle.Fill; // Để UC phủ toàn bộ Form
+            panel1.Controls.Clear(); // Xóa các control trước đó
+            panel1.Controls.Add(ucTaiKhoan); // Thêm UC vào panel
+        }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            btnTrangChu.PerformClick();
         }
     }
 }

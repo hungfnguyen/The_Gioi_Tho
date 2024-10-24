@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheGioiTho.Config;
 
 namespace TheGioiTho.Controller.Tho
 {
@@ -89,11 +90,12 @@ namespace TheGioiTho.Controller.Tho
 
         }
 
-        private SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True");
+        private SqlConnection conn;
 
         public UC_DangBai()
         {
             InitializeComponent();
+            conn = DBConnection.GetConnection(); // Lấy kết nối từ cấu hình
             LoadThongTinTho(); // Gọi hàm khi UC được khởi tạo
             // Gọi hàm để tải lĩnh vực tương ứng khi công việc được chọn
             LoadLinhVuc();

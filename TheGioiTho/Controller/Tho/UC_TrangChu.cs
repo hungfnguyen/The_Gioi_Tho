@@ -8,19 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheGioiTho.Config;
 
 namespace TheGioiTho.Controller.Tho
 {
     public partial class UC_TrangChu : UserControl
     {
-        private SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True");
+       
         private int idNguoiDung; // Biến để lưu ID người dùng
-
+        private SqlConnection conn;
 
 
         public UC_TrangChu()
         {
             InitializeComponent();
+            conn = DBConnection.GetConnection(); // Lấy kết nối từ cấu hình
             LoadBaiDangNguoiDung(); // Gọi hàm khi UC được khởi tạo
             dgvBaiDangNguoiDung.CellClick += dgvBaiDangNguoiDung_CellClick; // Đăng ký sự kiện CellClick
         }

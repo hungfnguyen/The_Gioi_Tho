@@ -36,7 +36,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
             {
                 conn.Open();
                 string query = @"
@@ -209,7 +209,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
             {
                 conn.Open();
                 string query = @"
@@ -246,7 +246,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
             {
                 conn.Open();
                 string query = @"
@@ -283,7 +283,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
             {
                 conn.Open();
                 string query = @"
@@ -320,7 +320,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
             {
                 conn.Open();
                 string query = @"

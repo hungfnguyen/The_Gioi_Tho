@@ -33,8 +33,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.6\lib\net472\Guna.UI2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Web.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Web.DataVisualization.Design.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Windows.Forms.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Chart.Controls.4.7.2046\lib\net35\System.Windows.Forms.DataVisualization.Design.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +73,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\DBConnection.cs" />
+    <Compile Include="Controller\Calendar\UC_Day.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Calendar\UC_Day.Designer.cs">
+      <DependentUpon>UC_Day.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Calendar\UC_Gio.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Calendar\UC_Gio.Designer.cs">
+      <DependentUpon>UC_Gio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controller\Tho\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,12 +109,34 @@
     <Compile Include="Controller\Tho\UC_LichHen.Designer.cs">
       <DependentUpon>UC_LichHen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\Tho\UC_TaiKhoan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_TaiKhoan.Designer.cs">
+      <DependentUpon>UC_TaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_ThongKe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_ThongKe.Designer.cs">
+      <DependentUpon>UC_ThongKe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controller\Tho\UC_TrangChu.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controller\Tho\UC_TrangChu.Designer.cs">
       <DependentUpon>UC_TrangChu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\Tho\UC_XemDanhGia.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\Tho\UC_XemDanhGia.Designer.cs">
+      <DependentUpon>UC_XemDanhGia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dao\DanhGiaDao.cs" />
+    <Compile Include="Dao\LichHenDao.cs" />
+    <Compile Include="Dao\TaiKhoanDao.cs" />
+    <Compile Include="Dao\ThongKeDao.cs" />
     <Compile Include="DoAnTheGioiThoDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,7 +149,9 @@
     <Compile Include="Model\DanhGia.cs" />
     <Compile Include="Model\DanhMuc.cs" />
     <Compile Include="Model\DatLich.cs" />
+    <Compile Include="Model\LichHen.cs" />
     <Compile Include="Model\LinhVuc.cs" />
+    <Compile Include="Model\LyDoHuy.cs" />
     <Compile Include="Model\NgayNghi.cs" />
     <Compile Include="Model\NgayNghiTho.cs" />
     <Compile Include="Model\NguoiDung.cs" />
@@ -97,6 +159,12 @@
     <Compile Include="Model\Tho.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controller\Calendar\UC_Day.resx">
+      <DependentUpon>UC_Day.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Calendar\UC_Gio.resx">
+      <DependentUpon>UC_Gio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controller\Tho\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,8 +177,17 @@
     <EmbeddedResource Include="Controller\Tho\UC_LichHen.resx">
       <DependentUpon>UC_LichHen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\UC_TaiKhoan.resx">
+      <DependentUpon>UC_TaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\UC_ThongKe.resx">
+      <DependentUpon>UC_ThongKe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controller\Tho\UC_TrangChu.resx">
       <DependentUpon>UC_TrangChu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controller\Tho\UC_XemDanhGia.resx">
+      <DependentUpon>UC_XemDanhGia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -132,6 +209,7 @@
     <None Include="DoAnTheGioiThoDataSet.xss">
       <DependentUpon>DoAnTheGioiThoDataSet.xsd</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -146,7 +224,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dao\" />
     <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
