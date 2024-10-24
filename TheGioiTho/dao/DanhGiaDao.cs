@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using TheGioiTho.Model;
 using TheGioiTho.Config;
+using System.Data;
 
 namespace TheGioiTho.DAO
 {
@@ -87,56 +88,30 @@ namespace TheGioiTho.DAO
             return null;
         }
 
-        // Lấy danh sách đánh giá của một thợ
-        public List<DanhGia> GetDanhGiaByIDTho(int idTho)
+        // Lấy danh sách đánh giá của một thợ và trả về kiểu DataTable
+        public DataTable GetDanhGiaByIDTho(int idTho)
         {
-            List<DanhGia> danhSachDanhGia = new List<DanhGia>();
-            string query = @"
-                SELECT dg.*, nd.HoTen as HoTen
-                FROM DanhGia dg
-                JOIN NguoiDung nd ON dg.IDNguoiDung = nd.IDNguoiDung
-                JOIN CongViec cv ON dg.IDCongViec = cv.IDCongViec
-                JOIN BaiDang bd ON cv.IDBaiDang = bd.IDBaiDang
-                JOIN BaiDangTho bdt ON bd.IDBaiDang = bdt.IDBaiDang
-                WHERE bdt.IDTho = @IDTho";
+            DataTable dataTable = new DataTable();
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_GetDanhGiaByIDTho", conn))
                 {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDTho", idTho);
 
-                    try
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        conn.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                danhSachDanhGia.Add(new DanhGia
-                                {
-                                    IDNguoiDung = reader.GetInt32(reader.GetOrdinal("IDNguoiDung")),
-                                    IDLichHen = reader.GetInt32(reader.GetOrdinal("IDCongViec")),
-                                    SoSao = reader.GetInt32(reader.GetOrdinal("SoSao")),
-                                    NhanXet = reader.IsDBNull(reader.GetOrdinal("NhanXet")) ?
-                                        null : reader.GetString(reader.GetOrdinal("NhanXet")),
-                                    HinhAnh = reader.IsDBNull(reader.GetOrdinal("HinhAnh")) ?
-                                        null : reader.GetString(reader.GetOrdinal("HinhAnh")),
-                                    HoTen = reader.IsDBNull(reader.GetOrdinal("HoTen")) ?
-                                        null : reader.GetString(reader.GetOrdinal("HoTen")) // Gán giá trị cho TenNguoiDung
-                                });
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error in GetDanhGiaByIDTho: {ex.Message}");
-                        throw;
+                        // Tự động tạo cột trong DataTable dựa trên dữ liệu từ SqlDataReader
+                        dataTable.Load(reader);
                     }
                 }
             }
-            return danhSachDanhGia;
+
+            return dataTable;
         }
+
 
     }
 }

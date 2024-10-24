@@ -14,13 +14,15 @@ namespace TheGioiTho.Controller.Tho
     public partial class UC_XemDanhGia : UserControl
     {
         private DanhGiaDAO danhGiaDAO;
-        private int reviewCount = 0;
+       
         public UC_XemDanhGia()
         {
             InitializeComponent();
+            /*ptbHinhAnh.Image = Image.FromFile(@"C:\Users\maiho\OneDrive\Hình ảnh\hehe.jpg");
+            ptbHinhAnh.SizeMode = PictureBoxSizeMode.Zoom;*/
             this.Load += new EventHandler(UC_XemDanhGia_Load);
             danhGiaDAO = new DanhGiaDAO(); // Khởi tạo đối tượng DanhGiaDAO
-            InitializeDataGridView(); // Khởi tạo các cột cho DataGridView
+            //InitializeDataGridView(); // Khởi tạo các cột cho DataGridView
             dgvBaiDanhGia.CellClick += new DataGridViewCellEventHandler(dgvBaiDanhGia_CellClick); // Thêm sự kiện CellClick
 
         }
@@ -33,97 +35,88 @@ namespace TheGioiTho.Controller.Tho
                 DataGridViewRow selectedRow = dgvBaiDanhGia.Rows[e.RowIndex];
 
                 // Gán giá trị từ dòng được chọn vào các điều khiển tương ứng
-                txtTenKhachHang.Text = selectedRow.Cells["HoTen"].Value.ToString(); // Lấy Họ Tên
-                lblsao.Text = selectedRow.Cells["SoSao"].Value.ToString() + " Sao"; // Lấy Số Sao
-                txtNhanXet.Text = selectedRow.Cells["NhanXet"].Value.ToString(); // Lấy Nhận Xét
+                txtTenKhachHang.Text = selectedRow.Cells["HoTen"].Value?.ToString() ?? ""; // Lấy Họ Tên
+                lblsao.Text = selectedRow.Cells["SoSao"].Value?.ToString() + " Sao"; // Lấy Số Sao
+                txtNhanXet.Text = selectedRow.Cells["NhanXet"].Value?.ToString() ?? ""; // Lấy Nhận Xét
 
-                // Kiểm tra và gán hình ảnh nếu có
-                var hinhAnh = selectedRow.Cells["HinhAnh"].Value;
-                if (hinhAnh != null && !string.IsNullOrEmpty(hinhAnh.ToString()))
+                // Lấy số sao từ cell "SoSao" và chuyển về kiểu số nguyên
+                if (int.TryParse(selectedRow.Cells["SoSao"].Value?.ToString(), out int soSao))
                 {
-                    try
-                    {
-                        ptbHinhAnh.Image = Image.FromFile(hinhAnh.ToString()); // Đọc hình ảnh từ đường dẫn
-                        ptbHinhAnh.SizeMode = PictureBoxSizeMode.Zoom; // Tùy chọn để hình ảnh hiển thị đúng kích thước
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Không thể tải hình ảnh: " + ex.Message);
-                        ptbHinhAnh.Image = null; // Nếu không thể tải hình ảnh, để trống PictureBox
-                    }
+                    lblssao.Text = new string('★', soSao) + new string('☆', 5 - soSao);
+                }
+
+                // Kiểm tra và gán hình ảnh từ cột HinhAnhDisplay
+                if (selectedRow.Cells["HinhAnhDisplay"].Value is Image img) // Kiểm tra xem giá trị có phải là Image không
+                {
+                    ptbHinhAnh.Image = img; // Gán hình ảnh vào PictureBox
+                    ptbHinhAnh.SizeMode = PictureBoxSizeMode.Zoom; // Đặt chế độ hiển thị
                 }
                 else
                 {
-                    ptbHinhAnh.Image = null; // Không có hình ảnh thì để trống PictureBox
+                    ptbHinhAnh.Image = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap(); // Hiển thị biểu tượng mặc định
                 }
+               
             }
         }
         private void LoadDanhGia(int IDTho)
         {
-            // Lấy danh sách đánh giá từ cơ sở dữ liệu
-            var danhSachDanhGia = danhGiaDAO.GetDanhGiaByIDTho(IDTho);
+            // Lấy danh sách đánh giá từ cơ sở dữ liệu dưới dạng DataTable
+            DataTable danhSachDanhGia = danhGiaDAO.GetDanhGiaByIDTho(IDTho);
+            dgvBaiDanhGia.DataSource = danhSachDanhGia;
 
-            // Xóa các hàng hiện có
-            dgvBaiDanhGia.Rows.Clear();
-
-
-
-            reviewCount = danhSachDanhGia.Count;
-
-            // Đổ dữ liệu vào DataGridView
-            foreach (var danhGia in danhSachDanhGia)
+            // Kiểm tra và thêm cột hình ảnh chỉ nếu nó chưa tồn tại
+            if (!dgvBaiDanhGia.Columns.Contains("HinhAnhDisplay"))
             {
-                int rowIndex = dgvBaiDanhGia.Rows.Add();
-                dgvBaiDanhGia.Rows[rowIndex].Cells["HoTen"].Value = danhGia.HoTen; // Họ tên người dùng
-                dgvBaiDanhGia.Rows[rowIndex].Cells["SoSao"].Value = danhGia.SoSao; // Số sao
-                dgvBaiDanhGia.Rows[rowIndex].Cells["NhanXet"].Value = danhGia.NhanXet; // Nhận xét
-                dgvBaiDanhGia.Rows[rowIndex].Cells["HinhAnh"].Value = danhGia.HinhAnh;                                   // Hiển thị hình ảnh
-                                                                                                                       // Hiển thị hình ảnh
-                /*if (!string.IsNullOrEmpty(danhGia.HinhAnh))
+                DataGridViewImageColumn imageColumn = new DataGridViewImageColumn
+                {
+                    Name = "HinhAnhDisplay", // Tên cột mới để hiển thị hình ảnh
+                    HeaderText = "Hình Ảnh", // Tiêu đề cột
+                    ImageLayout = DataGridViewImageCellLayout.Stretch // Đặt chế độ hiển thị hình ảnh to hơn
+                };
+                dgvBaiDanhGia.Columns.Add(imageColumn);
+            }
+
+            // Tăng chiều cao của các hàng để hiển thị hình ảnh lớn hơn
+            dgvBaiDanhGia.RowTemplate.Height = 150; // Chiều cao của hàng, tùy chỉnh theo nhu cầu
+
+            // Hiển thị hình ảnh trong DataGridView
+            foreach (DataGridViewRow row in dgvBaiDanhGia.Rows)
+            {
+                // Lấy đường dẫn hình ảnh từ DataTable
+                string imagePath = row.Cells["HinhAnh"].Value?.ToString(); // Lấy đường dẫn hình ảnh
+
+                if (!string.IsNullOrEmpty(imagePath) && System.IO.File.Exists(imagePath)) // Kiểm tra đường dẫn
                 {
                     try
                     {
-                        dtgvDanhGia.Rows[rowIndex].Cells["HinhAnh"].Value = Image.FromFile(danhGia.HinhAnh); // Đọc hình ảnh từ đường dẫn
-                        dtgvDanhGia.Rows[rowIndex].Height = 100; // Tùy chỉnh chiều cao hàng để hình ảnh hiển thị tốt hơn
+                        // Đọc hình ảnh từ đường dẫn và gán vào cột hình ảnh
+                        Image img = Image.FromFile(imagePath);
+                        row.Cells["HinhAnhDisplay"].Value = img;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error loading image: {ex.Message}"); // Ghi lại lỗi nếu có
-                        dtgvDanhGia.Rows[rowIndex].Cells["HinhAnh"].Value = null; // Đặt giá trị null nếu không thể đọc hình ảnh
+                        MessageBox.Show($"Không thể tải hình ảnh: {ex.Message}");
+                        row.Cells["HinhAnhDisplay"].Value = null; // Nếu có lỗi, gán giá trị null
                     }
-                }*/
+                }
+                else
+                {
+                    row.Cells["HinhAnhDisplay"].Value = null; // Nếu không có hình ảnh, để null
+                }
             }
+
         }
-            private void InitializeDataGridView()
-            {
-                dgvBaiDanhGia.Columns.Clear(); // Xóa cột nếu có
-
-                // Tạo và thêm cột Họ Tên
-                dgvBaiDanhGia.Columns.Add("HoTen", "Họ Tên");
-
-                // Tạo và thêm cột Số Sao
-                dgvBaiDanhGia.Columns.Add("SoSao", "Số Sao");
-
-                // Tạo và thêm cột Nhận Xét
-                dgvBaiDanhGia.Columns.Add("NhanXet", "Nhận Xét");
-                // Tạo và thêm cột Nhận Xét
-                dgvBaiDanhGia.Columns.Add("HinhAnh", "Hình Ảnh");
-                /* // Tạo và thêm cột Hình ảnh
-                 var hinhAnhColumn = new DataGridViewImageColumn();
-                 hinhAnhColumn.Name = "HinhAnh";
-                 hinhAnhColumn.HeaderText = "Hình ảnh";
-                 hinhAnhColumn.Width = 100; // Đặt chiều rộng cho cột hình ảnh
-                 hinhAnhColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Căn giữa hình ảnh
-                 dtgvDanhGia.Columns.Add(hinhAnhColumn);*/
-            }
+           
             private void UC_XemDanhGia_Load(object sender, EventArgs e)
             {
                 int IDTho = 1;  // Thay ID tho thực tế
                 LoadDanhGia(IDTho);
 
-               
-            
-
              }
+
+        private void UC_XemDanhGia_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

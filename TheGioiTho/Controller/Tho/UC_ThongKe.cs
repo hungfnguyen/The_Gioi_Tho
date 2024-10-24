@@ -91,43 +91,79 @@ namespace TheGioiTho.Controller.Tho
             Title chartTitle = new Title
             {
                 Text = "Thống kê số sao của thợ",  // Tiêu đề của biểu đồ
-                Font = new Font("Arial", 12, FontStyle.Bold),  // Đặt cỡ chữ lớn hơn và in đậm
-                ForeColor = Color.White // Màu của chữ tiêu đề (tuỳ chọn)
+                Font = new Font("Arial", 14, FontStyle.Bold),  // Đặt cỡ chữ lớn hơn và in đậm
+                ForeColor = Color.White // Màu của chữ tiêu đề
             };
             chartColumn.Titles.Add(chartTitle);
 
             // Tạo khu vực biểu đồ và cấu hình các thuộc tính
             ChartArea chartAreaColumn = new ChartArea
             {
-                BackColor = Color.White // Màu nền của khu vực biểu đồ
+                BackColor = Color.FromArgb(240, 240, 240) // Màu nền nhẹ nhàng cho khu vực biểu đồ
             };
 
             // Thêm tiêu đề cho trục X và trục Y
-            chartAreaColumn.AxisX.Title = "sao"; // Tiêu đề cho trục X
-            chartAreaColumn.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Regular); // Đặt font chữ cho tiêu đề trục X
-            chartAreaColumn.AxisY.Title = "Số lượng"; // Tiêu đề cho trục Y
-            chartAreaColumn.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Regular); // Đặt font chữ cho tiêu đề trục Y
+            chartAreaColumn.AxisX.Title = "Số sao";
+            chartAreaColumn.AxisX.TitleFont = new Font("Arial", 12, FontStyle.Regular);
+            chartAreaColumn.AxisX.LabelStyle.ForeColor = Color.Black;
+            chartAreaColumn.AxisX.LineColor = Color.Gray; // Màu của trục X
+
+            chartAreaColumn.AxisY.Title = "Số lượng";
+            chartAreaColumn.AxisY.TitleFont = new Font("Arial", 12, FontStyle.Regular);
+            chartAreaColumn.AxisY.LabelStyle.ForeColor = Color.Black;
+            chartAreaColumn.AxisY.LineColor = Color.Gray; // Màu của trục Y
+
+            // Tùy chỉnh lưới
+            chartAreaColumn.AxisX.MajorGrid.LineColor = Color.LightGray; // Lưới trục X
+            chartAreaColumn.AxisY.MajorGrid.LineColor = Color.LightGray; // Lưới trục Y
+
             chartColumn.ChartAreas.Add(chartAreaColumn);
-            CustomizeAxis(chartAreaColumn);
 
             // Tạo loạt dữ liệu cho biểu đồ cột
-            Series seriesColumn = CreateSeries();
+            Series seriesColumn = new Series
+            {
+                Name = "Số sao",
+                IsValueShownAsLabel = true, // Hiển thị giá trị trên các cột
+                ChartType = SeriesChartType.Column,
+                BorderWidth = 1,
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
 
-            // Thêm dữ liệu vào loạt
+            // Thêm dữ liệu và tùy chỉnh màu cho mỗi số sao
             for (int i = 1; i <= 5; i++)
             {
-                seriesColumn.Points.AddXY(i.ToString(), danhGiaDAO.DemSoSao(IDTho, i));
-                
-            }
+                int soLuong = danhGiaDAO.DemSoSao(IDTho, i);
+                DataPoint point = new DataPoint(i, soLuong);
 
-            // Tùy chỉnh đầu cột tròn
-            CustomizeDataPoints(seriesColumn);
+                // Tùy chỉnh màu cho từng cột tương ứng với số sao
+                switch (i)
+                {
+                    case 5:
+                        point.Color = Color.Gold; // Màu vàng đậm cho 5 sao
+                        break;
+                    case 4:
+                        point.Color = Color.FromArgb(255, 223, 0); // Màu vàng nhạt hơn cho 4 sao
+                        break;
+                    case 3:
+                        point.Color = Color.FromArgb(255, 204, 0); // Màu trung bình cho 3 sao
+                        break;
+                    case 2:
+                        point.Color = Color.FromArgb(255, 183, 0); // Màu nhạt cho 2 sao
+                        break;
+                    case 1:
+                        point.Color = Color.FromArgb(255, 160, 0); // Màu rất nhạt hoặc cam cho 1 sao
+                        break;
+                }
+
+                seriesColumn.Points.Add(point);
+            }
 
             chartColumn.Series.Add(seriesColumn);
 
             // Thêm biểu đồ cột vào panel
             pnlThongKe.Controls.Add(chartColumn); // Thêm vào panel
         }
+
 
         // Tùy chỉnh các thuộc tính của trục
         private void CustomizeAxis(ChartArea chartArea)
@@ -170,7 +206,7 @@ namespace TheGioiTho.Controller.Tho
         }
         private void UC_XemDanhGia_Load(object sender, EventArgs e)
         {
-            int IDTho = 1;  // Thay ID tho thực tế
+            int IDTho = 2;  // Thay ID tho thực tế
             LoadData(IDTho);
 
             // Tính điểm trung bình và hiển thị lên lblSaotb

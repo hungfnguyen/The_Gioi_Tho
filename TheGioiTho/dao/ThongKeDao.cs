@@ -18,26 +18,12 @@ namespace TheGioiTho.Dao
         {
             DataTable dt = new DataTable();
 
-            string query = @"
-        SELECT 
-            cv.IDCongViec,
-            bdt.GiaTien,
-            cv.TrangThaiCongViecTho,
-            cv.ThoiGianBatDau,
-            cv.ThoiGianHoanThanh
-        FROM 
-            CongViec cv
-        JOIN 
-            BaiDangTho bdt ON cv.IDBaiDang = bdt.IDBaiDang
-        WHERE 
-            cv.TrangThaiCongViecTho = 'Đã hoàn thành' 
-            AND bdt.IDTho = @IDTho";
-
             using (SqlConnection conn = DBConnection.GetConnection())
             {
                 conn.Open();
-                using (SqlCommand command = new SqlCommand(query, conn))
+                using (SqlCommand command = new SqlCommand("sp_LayDanhSachCongViecDaHoanThanh", conn))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@IDTho", IDTho);
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
@@ -50,31 +36,22 @@ namespace TheGioiTho.Dao
             return dt;
         }
 
+
+
         // Tính doanh thu của thợ trong 3 tháng gần nhất
         public decimal LayDoanhThuTheoThang(int month, int year, int IDTho)
         {
             decimal doanhThu = 0;
 
-            // Truy vấn cơ sở dữ liệu
-            string query = @"
-        SELECT SUM(bdt.GiaTien) AS DoanhThu
-        FROM CongViec cv
-        JOIN BaiDangTho bdt ON cv.IDBaiDang = bdt.IDBaiDang
-        WHERE MONTH(cv.ThoiGianBatDau) = @Thang 
-          AND YEAR(cv.ThoiGianBatDau) = @Nam 
-          AND cv.TrangThaiCongViecTho = 'Đã hoàn thành' 
-          AND bdt.IDTho = @idTho";
-
-            // Thực hiện truy vấn và xử lý dữ liệu
             using (SqlConnection conn = DBConnection.GetConnection())
             {
                 conn.Open();
-                using (SqlCommand command = new SqlCommand(query, conn))
+                using (SqlCommand command = new SqlCommand("LayDoanhThuTheoThang", conn))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Thang", month);
                     command.Parameters.AddWithValue("@Nam", year);
-                    
-                    command.Parameters.AddWithValue("@idTho", IDTho);
+                    command.Parameters.AddWithValue("@IDTho", IDTho);
 
                     object result = command.ExecuteScalar();
                     if (result != null && result != DBNull.Value)
@@ -86,6 +63,7 @@ namespace TheGioiTho.Dao
 
             return doanhThu;
         }
+
 
         public Dictionary<string, decimal> LayDoanhThuCacThangGanDay(int soThang,int IDTho)
         {
@@ -121,56 +99,44 @@ namespace TheGioiTho.Dao
             return doanhThuTheoThang;
         }
         // Tính điểm đánh giá trung bình của thợ
-        public decimal TinhDiemTrungBinh(int idTho)
+       public decimal TinhDiemTrungBinh(int idTho)
+{
+    using (SqlConnection conn = DBConnection.GetConnection())
+    {
+        using (SqlCommand cmd = new SqlCommand("SELECT dbo.TinhDiemTrungBinh(@IDTho)", conn))
         {
-            string query = @"
-                SELECT AVG(CAST(SoSao AS DECIMAL(3,2)))
-                FROM DanhGia dg
-                JOIN CongViec cv ON dg.IDCongViec = cv.IDCongViec
-                JOIN BaiDang bd ON cv.IDBaiDang = bd.IDBaiDang
-                JOIN BaiDangTho bdt ON bd.IDBaiDang = bdt.IDBaiDang
-                WHERE bdt.IDTho = @IDTho";
-
-            using (SqlConnection conn = DBConnection.GetConnection())
+            cmd.Parameters.AddWithValue("@IDTho", idTho);
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                conn.Open();
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
                 {
-                    cmd.Parameters.AddWithValue("@IDTho", idTho);
-                    try
-                    {
-                        conn.Open();
-                        object result = cmd.ExecuteScalar();
-                        if (result != null && result != DBNull.Value)
-                        {
-                            return Convert.ToDecimal(result);
-                        }
-                        return 0;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error in TinhDiemTrungBinh: {ex.Message}");
-                        throw;
-                    }
+                    return Convert.ToDecimal(result);
                 }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in TinhDiemTrungBinh: {ex.Message}");
+                throw;
             }
         }
+    }
+}
+
+
 
         // Đếm số lượng đánh giá cho từng số sao
         public int DemSoSao(int idTho, int soSao)
         {
             int count = 0;
-            string query = @"
-            SELECT COUNT(*)
-            FROM DanhGia dg
-            JOIN CongViec cv ON dg.IDCongViec = cv.IDCongViec
-            JOIN BaiDang bd ON cv.IDBaiDang = bd.IDBaiDang
-            JOIN BaiDangTho bdt ON bd.IDBaiDang = bdt.IDBaiDang
-            WHERE bdt.IDTho = @IDTho AND dg.SoSao = @SoSao";
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_DemSoSao", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDTho", idTho);
                     cmd.Parameters.AddWithValue("@SoSao", soSao);
 
@@ -186,24 +152,20 @@ namespace TheGioiTho.Dao
                     }
                 }
             }
+
             return count;
         }
+
 
         public int DemSoLuongDanhGia(int idTho)
         {
             int reviewCount = 0;
-            string query = @"
-    SELECT COUNT(*)
-    FROM DanhGia dg
-    JOIN CongViec cv ON dg.IDCongViec = cv.IDCongViec
-    JOIN BaiDang bd ON cv.IDBaiDang = bd.IDBaiDang
-    JOIN BaiDangTho bdt ON bd.IDBaiDang = bdt.IDBaiDang
-    WHERE bdt.IDTho = @IDTho";
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand("DemSoLuongDanhGia", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDTho", idTho);
 
                     try
@@ -218,6 +180,8 @@ namespace TheGioiTho.Dao
                     }
                 }
             }
+        
+
             return reviewCount;
         }
 

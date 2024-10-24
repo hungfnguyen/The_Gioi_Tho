@@ -8,6 +8,7 @@ using TheGioiTho.Model;
 using TheGioiTho.Config;
 using GUI.All_Calendar_Control;
 using System.Windows.Forms;
+using System.Data;
 
 namespace TheGioiTho.Dao
 {
@@ -15,81 +16,69 @@ namespace TheGioiTho.Dao
     {
         public bool DoiMatKhau(int idTho, string matKhauCu, string matKhauMoi)
         {
-            // Kiểm tra mật khẩu cũ
-            string queryCheck = "SELECT COUNT(*) FROM Tho WHERE IDTho = @IDTho AND MatKhau = @MatKhauCu";
             using (SqlConnection conn = DBConnection.GetConnection())
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(queryCheck, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_DoiMatKhau", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDTho", idTho);
                     cmd.Parameters.AddWithValue("@MatKhauCu", matKhauCu);
-
-                    int count = (int)cmd.ExecuteScalar();
-                    if (count == 0) // Mật khẩu cũ không chính xác
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            // Cập nhật mật khẩu mới
-            string queryUpdate = "UPDATE Tho SET MatKhau = @MatKhauMoi WHERE IDTho = @IDTho";
-            using (SqlConnection conn = DBConnection.GetConnection())
-            {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(queryUpdate, conn))
-                {
                     cmd.Parameters.AddWithValue("@MatKhauMoi", matKhauMoi);
-                    cmd.Parameters.AddWithValue("@IDTho", idTho);
-                    return cmd.ExecuteNonQuery() > 0; // Trả về true nếu có dòng được cập nhật
+
+                    conn.Open();
+                    object result = cmd.ExecuteScalar(); // Lấy giá trị trả về từ stored procedure
+
+                    // Kiểm tra xem result có phải là null hay không
+                    if (result != null)
+                    {
+                        return (int)result == 1; // Trả về true nếu đổi mật khẩu thành công
+                    }
+                    else
+                    {
+                        return false; // Không có giá trị trả về
+                    }
                 }
             }
         }
 
+
+
+
         public bool CapNhatTho(Tho tho)
         {
-            string query = @"
-        UPDATE Tho 
-        SET TaiKhoan = @TaiKhoan, MatKhau = @MatKhau, HoTen = @HoTen, 
-            SoDienThoai = @SoDienThoai, GioiTinh = @GioiTinh, DiaChi = @DiaChi, 
-            SoNamKinhNghiem = @SoNamKinhNghiem 
-        WHERE IDTho = @IDTho";
-
             using (SqlConnection conn = DBConnection.GetConnection())
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_CapNhatTho", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IDTho", tho.IDTho);
                     cmd.Parameters.AddWithValue("@TaiKhoan", tho.TaiKhoan);
-                    cmd.Parameters.AddWithValue("@MatKhau", tho.MatKhau); // Nếu cần cập nhật mật khẩu
+                    cmd.Parameters.AddWithValue("@MatKhau", tho.MatKhau);
                     cmd.Parameters.AddWithValue("@HoTen", tho.HoTen);
                     cmd.Parameters.AddWithValue("@SoDienThoai", tho.SoDienThoai);
                     cmd.Parameters.AddWithValue("@GioiTinh", tho.GioiTinh);
                     cmd.Parameters.AddWithValue("@DiaChi", tho.DiaChi);
                     cmd.Parameters.AddWithValue("@SoNamKinhNghiem", tho.SoNamKinhNghiem);
-                    cmd.Parameters.AddWithValue("@IDTho", tho.IDTho);
 
+                    conn.Open();
                     return cmd.ExecuteNonQuery() > 0; // Trả về true nếu có dòng được cập nhật
                 }
             }
         }
 
+
         // Phương thức lấy thông tin thợ qua IDTho
         public Tho LayThongTinTho(int idTho)
         {
             Tho tho = null;
-            string query = @"
-                SELECT IDTho, TaiKhoan, MatKhau, HoTen, SoDienThoai, GioiTinh, DiaChi, SoNamKinhNghiem 
-                FROM Tho 
-                WHERE IDTho = @IDTho";
-
             using (SqlConnection conn = DBConnection.GetConnection())
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_LayThongTinTho", conn))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IDTho", idTho);
+
+                    conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -113,6 +102,40 @@ namespace TheGioiTho.Dao
             return tho;
         }
 
+
+        public bool XoaTaiKhoan(int idTho, string matKhau)
+        {
+            using (SqlConnection conn = DBConnection.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_XoaTaiKhoan", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IDTho", idTho);
+                    cmd.Parameters.AddWithValue("@MatKhau", matKhau);
+
+                    conn.Open();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        return true; // Nếu không có exception, xóa thành công
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 50000) // Mã lỗi của RAISERROR
+                        {
+                            MessageBox.Show("Mật khẩu không chính xác!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Lỗi khi xóa tài khoản: " + ex.Message);
+                        }
+                        return false; // Không xóa được
+                    }
+                }
+            }
+        }
+
+
         public void MarkOffDays(int idTho, FlowLayoutPanel panel, int month, int year)
         {
             using (SqlConnection connection = DBConnection.GetConnection())
@@ -120,9 +143,10 @@ namespace TheGioiTho.Dao
                 try
                 {
                     connection.Open();
-                    string query = "SELECT Ngay FROM NgayNghi WHERE IDTho = @IDTho";
-                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlCommand command = new SqlCommand("sp_GetOffDays", connection);
+                    command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@IDTho", idTho);
+
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -143,7 +167,6 @@ namespace TheGioiTho.Dao
                 }
             }
         }
-
         public void DeletePastOffDays(int idTho)
         {
             using (SqlConnection connection = DBConnection.GetConnection())

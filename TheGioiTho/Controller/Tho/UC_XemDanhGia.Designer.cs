@@ -38,6 +38,7 @@
             this.lblNhanXet = new System.Windows.Forms.Label();
             this.lblSoSao = new System.Windows.Forms.Label();
             this.lblTenKhachHang = new System.Windows.Forms.Label();
+            this.lblssao = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBaiDanhGia)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbHinhAnh)).BeginInit();
@@ -52,7 +53,7 @@
             this.dgvBaiDanhGia.Name = "dgvBaiDanhGia";
             this.dgvBaiDanhGia.RowHeadersWidth = 51;
             this.dgvBaiDanhGia.RowTemplate.Height = 24;
-            this.dgvBaiDanhGia.Size = new System.Drawing.Size(807, 456);
+            this.dgvBaiDanhGia.Size = new System.Drawing.Size(807, 492);
             this.dgvBaiDanhGia.TabIndex = 1;
             this.dgvBaiDanhGia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBaiDanhGia_CellClick);
             // 
@@ -66,18 +67,19 @@
             this.panel1.Controls.Add(this.lblNhanXet);
             this.panel1.Controls.Add(this.lblSoSao);
             this.panel1.Controls.Add(this.lblTenKhachHang);
+            this.panel1.Controls.Add(this.lblssao);
             this.panel1.Location = new System.Drawing.Point(816, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(370, 456);
+            this.panel1.Size = new System.Drawing.Size(370, 486);
             this.panel1.TabIndex = 2;
             // 
             // lblsao
             // 
             this.lblsao.AllowDrop = true;
-            this.lblsao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblsao.Location = new System.Drawing.Point(149, 82);
+            this.lblsao.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblsao.Location = new System.Drawing.Point(120, 82);
             this.lblsao.Name = "lblsao";
-            this.lblsao.Size = new System.Drawing.Size(112, 41);
+            this.lblsao.Size = new System.Drawing.Size(58, 41);
             this.lblsao.TabIndex = 7;
             this.lblsao.Text = "so sao";
             this.lblsao.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -85,7 +87,7 @@
             // ptbHinhAnh
             // 
             this.ptbHinhAnh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ptbHinhAnh.Location = new System.Drawing.Point(27, 256);
+            this.ptbHinhAnh.Location = new System.Drawing.Point(27, 288);
             this.ptbHinhAnh.Name = "ptbHinhAnh";
             this.ptbHinhAnh.Size = new System.Drawing.Size(307, 184);
             this.ptbHinhAnh.TabIndex = 6;
@@ -94,7 +96,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 227);
+            this.label1.Location = new System.Drawing.Point(24, 254);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 16);
             this.label1.TabIndex = 5;
@@ -103,10 +105,10 @@
             // txtNhanXet
             // 
             this.txtNhanXet.AllowDrop = true;
-            this.txtNhanXet.Location = new System.Drawing.Point(27, 155);
+            this.txtNhanXet.Location = new System.Drawing.Point(27, 207);
             this.txtNhanXet.Name = "txtNhanXet";
             this.txtNhanXet.ReadOnly = true;
-            this.txtNhanXet.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtNhanXet.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtNhanXet.Size = new System.Drawing.Size(307, 22);
             this.txtNhanXet.TabIndex = 3;
             // 
@@ -121,7 +123,7 @@
             // lblNhanXet
             // 
             this.lblNhanXet.AutoSize = true;
-            this.lblNhanXet.Location = new System.Drawing.Point(24, 136);
+            this.lblNhanXet.Location = new System.Drawing.Point(24, 188);
             this.lblNhanXet.Name = "lblNhanXet";
             this.lblNhanXet.Size = new System.Drawing.Size(61, 16);
             this.lblNhanXet.TabIndex = 2;
@@ -145,6 +147,15 @@
             this.lblTenKhachHang.TabIndex = 1;
             this.lblTenKhachHang.Text = "Tên Khách Hàng";
             // 
+            // lblssao
+            // 
+            this.lblssao.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblssao.Location = new System.Drawing.Point(72, 111);
+            this.lblssao.Name = "lblssao";
+            this.lblssao.Size = new System.Drawing.Size(183, 41);
+            this.lblssao.TabIndex = 8;
+            this.lblssao.Text = "☆☆☆☆☆";
+            // 
             // UC_XemDanhGia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -152,7 +163,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvBaiDanhGia);
             this.Name = "UC_XemDanhGia";
-            this.Size = new System.Drawing.Size(1189, 462);
+            this.Size = new System.Drawing.Size(1189, 507);
+            this.Load += new System.EventHandler(this.UC_XemDanhGia_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBaiDanhGia)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -173,5 +185,6 @@
         private System.Windows.Forms.Label lblsao;
         private System.Windows.Forms.PictureBox ptbHinhAnh;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblssao;
     }
 }

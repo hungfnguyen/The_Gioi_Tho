@@ -139,6 +139,7 @@ namespace TheGioiTho.Controller.Tho
                 MessageBox.Show("Mật khẩu mới và xác nhận mật khẩu không khớp.");
                 return;
             }
+
             if (taiKhoanDao.DoiMatKhau(tho.IDTho, matKhauCu, matKhauMoi))
             {
                 MessageBox.Show("Đổi mật khẩu thành công.");
@@ -157,6 +158,17 @@ namespace TheGioiTho.Controller.Tho
 
         private void btnXacNhan_Click(object sender, EventArgs e)
         {
+            string matKhau = txtMatKhau.Text; // Giả sử có một TextBox để nhập mật khẩu
+
+
+            if (taiKhoanDao.XoaTaiKhoan(tho.IDTho, matKhau))
+            {
+                MessageBox.Show("Xóa tài khoản thành công!");
+            }
+            else
+            {
+                MessageBox.Show("Không thể xóa tài khoản. Vui lòng kiểm tra lại!");
+            }
 
         }
 
