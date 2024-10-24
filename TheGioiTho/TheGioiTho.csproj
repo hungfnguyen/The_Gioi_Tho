@@ -127,6 +127,7 @@
     <Compile Include="Controller\Tho\UC_TrangChu.Designer.cs">
       <DependentUpon>UC_TrangChu.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Controller\Tho\UC_XemDanhGia.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,6 +138,9 @@
     <Compile Include="Dao\LichHenDao.cs" />
     <Compile Include="Dao\TaiKhoanDao.cs" />
     <Compile Include="Dao\ThongKeDao.cs" />
+=======
+    <Compile Include="Dao\BaiDangDao.cs" />
+>>>>>>> d6fa94791ae98e8f1752eb22ba4133fd01084daa
     <Compile Include="DoAnTheGioiThoDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

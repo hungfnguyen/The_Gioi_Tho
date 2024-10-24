@@ -98,6 +98,7 @@
             this.dgvLichHen.Name = "dgvLichHen";
             this.dgvLichHen.RowHeadersWidth = 51;
             this.dgvLichHen.RowTemplate.Height = 24;
+            this.dgvLichHen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvLichHen.Size = new System.Drawing.Size(832, 363);
             this.dgvLichHen.TabIndex = 7;
             this.dgvLichHen.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLichHen_CellContentClick);
@@ -135,6 +136,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvLichHen);
             this.Controls.Add(this.btnDaHuy);
@@ -143,7 +145,7 @@
             this.Controls.Add(this.btnDaChapNhan);
             this.Controls.Add(this.btnChuaXuLi);
             this.Name = "UC_LichHen";
-            this.Size = new System.Drawing.Size(1189, 462);
+            this.Size = new System.Drawing.Size(1185, 458);
             this.Load += new System.EventHandler(this.UC_LichHen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLichHen)).EndInit();
             this.panel1.ResumeLayout(false);

@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|d:\\hoctapute\\he quan tri co so du lieu\\tho\\the_gioi_tho\\thegioitho\\dao\\taikhoandao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|solutionrelative:thegioitho\\dao\\taikhoandao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|d:\\hoctapute\\he quan tri co so du lieu\\tho\\the_gioi_tho\\thegioitho\\controller\\tho\\uc_taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|solutionrelative:thegioitho\\controller\\tho\\uc_taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|d:\\hoctapute\\he quan tri co so du lieu\\tho\\the_gioi_tho\\thegioitho\\controller\\tho\\uc_taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|solutionrelative:thegioitho\\controller\\tho\\uc_taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|d:\\hoctapute\\he quan tri co so du lieu\\tho\\the_gioi_tho\\thegioitho\\dao\\thongkedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|solutionrelative:thegioitho\\dao\\thongkedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|d:\\hoctapute\\he quan tri co so du lieu\\tho\\the_gioi_tho\\thegioitho\\dao\\danhgiadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC368497-8B4D-4E4A-A380-3EC1BF9DE547}|TheGioiTho\\TheGioiTho.csproj|solutionrelative:thegioitho\\dao\\danhgiadao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,53 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UC_TaiKhoan.cs",
-              "DocumentMoniker": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs",
-              "RelativeDocumentMoniker": "TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs",
-              "ToolTip": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs",
-              "RelativeToolTip": "TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAkwJ0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T12:32:00.887Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UC_TaiKhoan.cs [Design]",
-              "DocumentMoniker": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs",
-              "RelativeDocumentMoniker": "TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs",
-              "ToolTip": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs [Design]",
-              "RelativeToolTip": "TheGioiTho\\Controller\\Tho\\UC_TaiKhoan.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T12:31:59.3Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TaiKhoanDao.cs",
-              "DocumentMoniker": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\dao\\TaiKhoanDao.cs",
-              "RelativeDocumentMoniker": "TheGioiTho\\dao\\TaiKhoanDao.cs",
-              "ToolTip": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\dao\\TaiKhoanDao.cs",
-              "RelativeToolTip": "TheGioiTho\\dao\\TaiKhoanDao.cs",
-              "ViewState": "AgIAALkAAAAAAAAAAAAiwMwAAAAAAAAAAAAAAA==",
+              "Title": "DanhGiaDao.cs",
+              "DocumentMoniker": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\dao\\DanhGiaDao.cs",
+              "RelativeDocumentMoniker": "TheGioiTho\\dao\\DanhGiaDao.cs",
+              "ToolTip": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\dao\\DanhGiaDao.cs",
+              "RelativeToolTip": "TheGioiTho\\dao\\DanhGiaDao.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAYwG0AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T12:26:56.951Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ThongKeDao.cs",
-              "DocumentMoniker": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\dao\\ThongKeDao.cs",
-              "RelativeDocumentMoniker": "TheGioiTho\\dao\\ThongKeDao.cs",
-              "ToolTip": "D:\\HocTapUTE\\He Quan Tri Co So Du Lieu\\Tho\\The_Gioi_Tho\\TheGioiTho\\dao\\ThongKeDao.cs",
-              "RelativeToolTip": "TheGioiTho\\dao\\ThongKeDao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T12:26:54.608Z",
+              "WhenOpened": "2024-10-24T15:56:02.195Z",
               "EditorCaption": ""
             }
           ]

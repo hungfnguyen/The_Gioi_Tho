@@ -15,7 +15,19 @@ namespace TheGioiTho.Controller.Tho
         public Form1()
         {
             InitializeComponent();
+<<<<<<< HEAD
             
+=======
+            LoadTrangChu(); // Gọi hàm để load UC_TrangChu khi form khởi tạo
+        }
+
+        private void LoadTrangChu()
+        {
+            UC_TrangChu ucTrangChu = new UC_TrangChu();
+            ucTrangChu.Dock = DockStyle.Fill;
+            panel1.Controls.Clear();
+            panel1.Controls.Add(ucTrangChu);
+>>>>>>> d6fa94791ae98e8f1752eb22ba4133fd01084daa
         }
 
         private void btnDanhGia_Click(object sender, EventArgs e)
@@ -70,6 +82,16 @@ namespace TheGioiTho.Controller.Tho
         private void Form1_Load(object sender, EventArgs e)
         {
             btnTrangChu.PerformClick();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -25,8 +25,7 @@ namespace TheGioiTho.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-M10LPRA9\\CONGDON;Initial Catalog=DoAnTheGioiTho;Integrated Sec" +
-            "urity=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True")]
         public string conn {
             get {
                 return ((string)(this["conn"]));
@@ -36,8 +35,7 @@ namespace TheGioiTho.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=DoAnTheGioiTho;Integrated " +
-            "Security=True;TrustServerCertificate=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True")]
         public string DoAnTheGioiThoConnectionString {
             get {
                 return ((string)(this["DoAnTheGioiThoConnectionString"]));

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheGioiTho.Config;
 
 namespace TheGioiTho.Controller.Tho
 {
@@ -18,8 +19,6 @@ namespace TheGioiTho.Controller.Tho
             InitializeComponent();
             SetupDataGridView();
         }
-
-        private SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True");
 
         private void dgvLichHen_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -35,31 +34,15 @@ namespace TheGioiTho.Controller.Tho
         private DataTable LayDanhSachCongViecChuaXuLi()
         {
             DataTable dt = new DataTable();
+<<<<<<< HEAD
 
             using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
+=======
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+>>>>>>> d6fa94791ae98e8f1752eb22ba4133fd01084daa
             {
                 conn.Open();
-                string query = @"
-            SELECT 
-                C.IDCongViec, 
-                L.TenLinhVuc, 
-                ND.HoTen AS TenKhachHang, 
-                C.ThoiGianBatDau AS NgayGio, 
-                ND.DiaChi
-
-
-            FROM 
-                CongViec C
-            INNER JOIN 
-                BaiDang B ON C.IDBaiDang = B.IDBaiDang
-            INNER JOIN 
-                BaiDangNguoiDung BND ON B.IDBaiDang = BND.IDBaiDang
-            INNER JOIN 
-                NguoiDung ND ON BND.IDNguoiDung = ND.IDNguoiDung
-            INNER JOIN 
-                LinhVuc L ON B.IDLinhVuc = L.IDLinhVuc
-            WHERE 
-                C.TrangThaiCongViecTho = N'Chờ Xác Nhận'"; // Điều kiện truy vấn để lấy các công việc chưa xử lý
+                string query = "SELECT * FROM View_CongViec WHERE TrangThaiCongViecTho = N'Chưa Xử Lí'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -67,7 +50,75 @@ namespace TheGioiTho.Controller.Tho
                     da.Fill(dt);
                 }
             }
+            return dt;
+        }
 
+        private DataTable LayDanhSachCongViecDaChapNhan()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT * FROM View_CongViec WHERE TrangThaiCongViecTho = N'Đã Chấp Nhận'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
+
+        private DataTable LayDanhSachCongViecTuChoi()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT * FROM View_CongViec WHERE TrangThaiCongViecTho = N'Từ Chối'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
+
+        private DataTable LayDanhSachCongViecDaHoanThanh()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT * FROM View_CongViec WHERE TrangThaiCongViecTho = N'Hoàn Thành'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
+
+
+        private DataTable LayDanhSachCongViecDaHuy()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                conn.Open();
+                string query = "SELECT * FROM View_CongViec WHERE TrangThaiCongViecTho = N'Hủy'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
             return dt;
         }
 
@@ -139,32 +190,12 @@ namespace TheGioiTho.Controller.Tho
 
         private void ChapNhanCongViec(int idCongViec)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
-            {
-                conn.Open();
-                string query = "UPDATE CongViec SET TrangThaiCongViecTho = N'Chấp Nhận' WHERE IDCongViec = @IDCongViec";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@IDCongViec", idCongViec);
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            CapNhatTrangThaiCongViec(idCongViec, "Chấp Nhận");
         }
 
         private void TuChoiCongViec(int idCongViec)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
-            {
-                conn.Open();
-                string query = "UPDATE CongViec SET TrangThaiCongViecTho = N'Từ Chối' WHERE IDCongViec = @IDCongViec";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@IDCongViec", idCongViec);
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            CapNhatTrangThaiCongViec(idCongViec, "Từ Chối");
         }
 
         private void btn_ChapNhan_Click(object sender, EventArgs e)
@@ -205,10 +236,9 @@ namespace TheGioiTho.Controller.Tho
             dgvLichHen.DataSource = dt; // Gán DataTable vào DataGridView
         }
 
-        private DataTable LayDanhSachCongViecDaChapNhan()
-        {
-            DataTable dt = new DataTable();
+        
 
+<<<<<<< HEAD
             using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-QTEB4KQ5\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True;Encrypt=True;TrustServerCertificate=True"))
             {
                 conn.Open();
@@ -352,7 +382,11 @@ namespace TheGioiTho.Controller.Tho
 
             return dt;
         }
+=======
+        
+>>>>>>> d6fa94791ae98e8f1752eb22ba4133fd01084daa
 
+       
 
         private void btnTuChoi_Click(object sender, EventArgs e)
         {
@@ -371,5 +405,19 @@ namespace TheGioiTho.Controller.Tho
             DataTable dt = LayDanhSachCongViecDaHuy(); // Lấy danh sách công việc đã hủy
             dgvLichHen.DataSource = dt; // Gán DataTable vào DataGridView
         }
+
+        private void CapNhatTrangThaiCongViec(int idCongViec, string trangThai)
+        {
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_CapNhatTrangThaiCongViec", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDCongViec", idCongViec);
+                cmd.Parameters.AddWithValue("@TrangThai", trangThai);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
     }
 }
