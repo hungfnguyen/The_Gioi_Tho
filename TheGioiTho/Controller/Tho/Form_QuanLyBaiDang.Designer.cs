@@ -31,8 +31,12 @@
             this.dgvQuanLyBaiDang = new System.Windows.Forms.DataGridView();
             this.btnXoaBaiDang = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnChinhSua = new System.Windows.Forms.Button();
+            this.txtTieuDe = new System.Windows.Forms.TextBox();
+            this.txtHinhAnhDuongDan = new System.Windows.Forms.TextBox();
+            this.btnChonAnh = new System.Windows.Forms.Button();
+            this.pbHinhAnh = new System.Windows.Forms.PictureBox();
             this.cbChonCongViec = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtGiaTien = new System.Windows.Forms.TextBox();
@@ -40,11 +44,7 @@
             this.txtThoiGianThucHien = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMoTa = new System.Windows.Forms.TextBox();
-            this.pbHinhAnh = new System.Windows.Forms.PictureBox();
-            this.btnChonAnh = new System.Windows.Forms.Button();
-            this.txtHinhAnhDuongDan = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtTieuDe = new System.Windows.Forms.TextBox();
+            this.btnChinhSua = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuanLyBaiDang)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbHinhAnh)).BeginInit();
@@ -99,16 +99,40 @@
             this.panel1.Size = new System.Drawing.Size(948, 236);
             this.panel1.TabIndex = 2;
             // 
-            // btnChinhSua
+            // txtTieuDe
             // 
-            this.btnChinhSua.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnChinhSua.Location = new System.Drawing.Point(413, 189);
-            this.btnChinhSua.Name = "btnChinhSua";
-            this.btnChinhSua.Size = new System.Drawing.Size(150, 40);
-            this.btnChinhSua.TabIndex = 3;
-            this.btnChinhSua.Text = "Chỉnh Sửa";
-            this.btnChinhSua.UseVisualStyleBackColor = false;
-            this.btnChinhSua.Click += new System.EventHandler(this.btnChinhSua_Click);
+            this.txtTieuDe.Location = new System.Drawing.Point(37, 30);
+            this.txtTieuDe.Name = "txtTieuDe";
+            this.txtTieuDe.Size = new System.Drawing.Size(307, 22);
+            this.txtTieuDe.TabIndex = 24;
+            // 
+            // txtHinhAnhDuongDan
+            // 
+            this.txtHinhAnhDuongDan.Location = new System.Drawing.Point(762, 161);
+            this.txtHinhAnhDuongDan.Name = "txtHinhAnhDuongDan";
+            this.txtHinhAnhDuongDan.Size = new System.Drawing.Size(147, 22);
+            this.txtHinhAnhDuongDan.TabIndex = 23;
+            this.txtHinhAnhDuongDan.Visible = false;
+            // 
+            // btnChonAnh
+            // 
+            this.btnChonAnh.Location = new System.Drawing.Point(639, 125);
+            this.btnChonAnh.Name = "btnChonAnh";
+            this.btnChonAnh.Size = new System.Drawing.Size(116, 41);
+            this.btnChonAnh.TabIndex = 22;
+            this.btnChonAnh.Text = "Chọn Ảnh";
+            this.btnChonAnh.UseVisualStyleBackColor = true;
+            this.btnChonAnh.Click += new System.EventHandler(this.btnChonAnh_Click);
+            // 
+            // pbHinhAnh
+            // 
+            this.pbHinhAnh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbHinhAnh.Location = new System.Drawing.Point(777, 54);
+            this.pbHinhAnh.Name = "pbHinhAnh";
+            this.pbHinhAnh.Size = new System.Drawing.Size(107, 100);
+            this.pbHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbHinhAnh.TabIndex = 21;
+            this.pbHinhAnh.TabStop = false;
             // 
             // cbChonCongViec
             // 
@@ -117,6 +141,15 @@
             this.cbChonCongViec.Name = "cbChonCongViec";
             this.cbChonCongViec.Size = new System.Drawing.Size(307, 24);
             this.cbChonCongViec.TabIndex = 20;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(34, 10);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Tiêu Đề";
             // 
             // label1
             // 
@@ -175,49 +208,16 @@
             this.txtMoTa.Size = new System.Drawing.Size(307, 22);
             this.txtMoTa.TabIndex = 19;
             // 
-            // pbHinhAnh
+            // btnChinhSua
             // 
-            this.pbHinhAnh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbHinhAnh.Location = new System.Drawing.Point(777, 54);
-            this.pbHinhAnh.Name = "pbHinhAnh";
-            this.pbHinhAnh.Size = new System.Drawing.Size(107, 100);
-            this.pbHinhAnh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbHinhAnh.TabIndex = 21;
-            this.pbHinhAnh.TabStop = false;
-            // 
-            // btnChonAnh
-            // 
-            this.btnChonAnh.Location = new System.Drawing.Point(639, 125);
-            this.btnChonAnh.Name = "btnChonAnh";
-            this.btnChonAnh.Size = new System.Drawing.Size(116, 41);
-            this.btnChonAnh.TabIndex = 22;
-            this.btnChonAnh.Text = "Chọn Ảnh";
-            this.btnChonAnh.UseVisualStyleBackColor = true;
-            this.btnChonAnh.Click += new System.EventHandler(this.btnChonAnh_Click);
-            // 
-            // txtHinhAnhDuongDan
-            // 
-            this.txtHinhAnhDuongDan.Location = new System.Drawing.Point(762, 161);
-            this.txtHinhAnhDuongDan.Name = "txtHinhAnhDuongDan";
-            this.txtHinhAnhDuongDan.Size = new System.Drawing.Size(147, 22);
-            this.txtHinhAnhDuongDan.TabIndex = 23;
-            this.txtHinhAnhDuongDan.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(34, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 16);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Tiêu Đề";
-            // 
-            // txtTieuDe
-            // 
-            this.txtTieuDe.Location = new System.Drawing.Point(37, 30);
-            this.txtTieuDe.Name = "txtTieuDe";
-            this.txtTieuDe.Size = new System.Drawing.Size(307, 22);
-            this.txtTieuDe.TabIndex = 24;
+            this.btnChinhSua.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnChinhSua.Location = new System.Drawing.Point(413, 189);
+            this.btnChinhSua.Name = "btnChinhSua";
+            this.btnChinhSua.Size = new System.Drawing.Size(150, 40);
+            this.btnChinhSua.TabIndex = 3;
+            this.btnChinhSua.Text = "Chỉnh Sửa";
+            this.btnChinhSua.UseVisualStyleBackColor = false;
+            this.btnChinhSua.Click += new System.EventHandler(this.btnChinhSua_Click);
             // 
             // Form_QuanLyBaiDang
             // 

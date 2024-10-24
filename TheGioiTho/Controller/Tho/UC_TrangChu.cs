@@ -36,26 +36,7 @@ namespace TheGioiTho.Controller.Tho
         {
             try
             {
-                string query = @"
-        SELECT 
-             BaiDang.IDBaiDang,
-            LinhVuc.TenLinhVuc,
-            NguoiDung.HoTen,
-            NguoiDung.SoDienThoai,
-            NguoiDung.DiaChi AS DiaChiKhachHang,
-            BaiDangNguoiDung.NgayThoDen,
-            BaiDangNguoiDung.GioThoDen,
-            BaiDang.MoTa AS GhiChu,
-            BaiDang.HinhAnh,
-            NguoiDung.IDNguoiDung -- Thêm ID người dùng vào truy vấn
-        FROM 
-            BaiDangNguoiDung
-        JOIN 
-            BaiDang ON BaiDangNguoiDung.IDBaiDang = BaiDang.IDBaiDang
-        JOIN 
-            LinhVuc ON BaiDang.IDLinhVuc = LinhVuc.IDLinhVuc
-        JOIN 
-            NguoiDung ON BaiDangNguoiDung.IDNguoiDung = NguoiDung.IDNguoiDung";
+                string query = "SELECT * FROM vw_BaiDangNguoiDung";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
@@ -151,9 +132,7 @@ namespace TheGioiTho.Controller.Tho
                 conn.Open();
                 SqlTransaction transaction = conn.BeginTransaction();
 
-                // Lấy giờ thợ đến từ hàng đã chọn
                 DataGridViewRow selectedRow = dgvBaiDangNguoiDung.SelectedRows[0];
-                // Sử dụng DateTime.TryParse để đảm bảo chuyển đổi an toàn
                 DateTime gioThoDen;
                 if (!DateTime.TryParse(selectedRow.Cells["GioThoDen"].Value.ToString(), out gioThoDen))
                 {
@@ -161,43 +140,24 @@ namespace TheGioiTho.Controller.Tho
                     return;
                 }
 
-                // Cộng thêm thời gian thực hiện
-                DateTime thoiGianHoanThanh = gioThoDen.Add(thoiGianThucHien.TimeOfDay); // Tính thời gian kết thúc
-
-                // Câu lệnh SQL để chèn vào bảng NhanViec
-                string queryNhanViec = @"
-        INSERT INTO NhanViec (IDTho, IDBaiDang)
-        VALUES (@IDTho, @IDBaiDang)";
-
-                using (SqlCommand cmdNhanViec = new SqlCommand(queryNhanViec, conn, transaction))
+                using (SqlCommand cmd = new SqlCommand("sp_DatLich", conn, transaction))
                 {
-                    cmdNhanViec.Parameters.AddWithValue("@IDTho", 1); // Giả định ID thợ là 1
-                    cmdNhanViec.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmdNhanViec.ExecuteNonQuery();
+                    // Truyền tham số vào stored procedure
+                    cmd.Parameters.AddWithValue("@IDTho", 1); // Giả định ID thợ là 1
+                    cmd.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
+                    cmd.Parameters.AddWithValue("@GioThoDen", gioThoDen);
+                    cmd.Parameters.AddWithValue("@ThoiGianThucHien", thoiGianThucHien.TimeOfDay);
+                    cmd.Parameters.AddWithValue("@TrangThaiCongViecTho", "Đã Chấp Nhận");
+                    cmd.Parameters.AddWithValue("@TrangThaiCongViecNguoiDung", "Đã Chấp Nhận");
+
+                    cmd.ExecuteNonQuery();
                 }
 
-                // Câu lệnh SQL để chèn vào bảng CongViec
-                string queryCongViec = @"
-        INSERT INTO CongViec (IDBaiDang, ThoiGianBatDau, ThoiGianHoanThanh, TrangThaiCongViecTho, TrangThaiCongViecNguoiDung)
-        VALUES (@IDBaiDang, @ThoiGianBatDau, @ThoiGianHoanThanh, @TrangThaiCongViecTho, @TrangThaiCongViecNguoiDung)";
-
-                using (SqlCommand cmdCongViec = new SqlCommand(queryCongViec, conn, transaction))
-                {
-                    cmdCongViec.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
-                    cmdCongViec.Parameters.AddWithValue("@ThoiGianBatDau", gioThoDen); // Truyền giờ thợ đến
-                    cmdCongViec.Parameters.AddWithValue("@ThoiGianHoanThanh", thoiGianHoanThanh); // Truyền thời gian hoàn thành
-                    cmdCongViec.Parameters.AddWithValue("@TrangThaiCongViecTho", "Chờ xác nhận"); // Trạng thái cho thợ
-                    cmdCongViec.Parameters.AddWithValue("@TrangThaiCongViecNguoiDung", "Chờ xác nhận"); // Trạng thái cho người dùng
-
-                    cmdCongViec.ExecuteNonQuery();
-                }
-
-                // Cam kết giao dịch
                 transaction.Commit();
                 MessageBox.Show("Đặt lịch thành công!");
 
-                // Cập nhật lại giao diện
                 LoadBaiDangNguoiDung();
             }
             catch (Exception ex)
@@ -209,6 +169,7 @@ namespace TheGioiTho.Controller.Tho
                 conn.Close();
             }
         }
+
 
 
     }

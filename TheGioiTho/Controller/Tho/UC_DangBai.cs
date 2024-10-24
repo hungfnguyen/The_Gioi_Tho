@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheGioiTho.Model;
 
 namespace TheGioiTho.Controller.Tho
 {
@@ -19,11 +20,8 @@ namespace TheGioiTho.Controller.Tho
         private void btnDangBai_Click(object sender, EventArgs e)
         {
             // Lấy dữ liệu từ các trường nhập liệu
-            string tieuDe = ""; // Giả sử bạn có txtTieuDe
+            string tieuDe = ""; // Giả sử bạn có txtTieuDe txtTieuDe.Text.Trim()
             string moTa = txtMoTa.Text.Trim();
-            
-            int idLinhVuc = (int)cbChonCongViec.SelectedValue; // Lấy ID lĩnh vực đã chọn
-            //int idTho = GetIDTho(); // Hàm lấy ID của thợ (nếu cần)
             string thoiGianThucHien = txtThoiGianThucHien.Text.Trim();
             decimal giaTien;
 
@@ -34,51 +32,36 @@ namespace TheGioiTho.Controller.Tho
                 return;
             }
 
+            int idLinhVuc = (int)cbChonCongViec.SelectedValue; // Lấy ID lĩnh vực đã chọn
+            int idTho = 1; // Thay thế bằng ID thợ hợp lệ
+
             try
             {
                 // Kết nối đến cơ sở dữ liệu
                 conn.Open();
 
-                // Bắt đầu giao dịch
-                using (SqlTransaction transaction = conn.BeginTransaction())
+                // Sử dụng Stored Procedure sp_ThemBaiDangTho
+                using (SqlCommand cmd = new SqlCommand("sp_ThemBaiDangTho", conn))
                 {
-                    try
-                    {
-                        // Thêm vào bảng BaiDang
-                        string queryBaiDang = "INSERT INTO BaiDang (IDLinhVuc, TieuDe, MoTa, HinhAnh) OUTPUT INSERTED.IDBaiDang VALUES (@IDLinhVuc, @TieuDe, @MoTa, @HinhAnh)";
-                        SqlCommand cmdBaiDang = new SqlCommand(queryBaiDang, conn, transaction);
-                        cmdBaiDang.Parameters.AddWithValue("@IDLinhVuc", idLinhVuc);
-                        cmdBaiDang.Parameters.AddWithValue("@TieuDe", tieuDe);
-                        cmdBaiDang.Parameters.AddWithValue("@MoTa", moTa);
-                        cmdBaiDang.Parameters.AddWithValue("@HinhAnh", hinhAnh);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        int idBaiDang = (int)cmdBaiDang.ExecuteScalar(); // Lấy ID của bài đăng mới tạo
+                    // Truyền các tham số cho thủ tục
+                    cmd.Parameters.AddWithValue("@IDLinhVuc", idLinhVuc);
+                    cmd.Parameters.AddWithValue("@TieuDe", tieuDe);
+                    cmd.Parameters.AddWithValue("@MoTa", moTa);
+                    cmd.Parameters.AddWithValue("@HinhAnh", hinhAnh);
+                    cmd.Parameters.AddWithValue("@IDTho", idTho);
+                    cmd.Parameters.AddWithValue("@GiaTien", giaTien);
+                    cmd.Parameters.AddWithValue("@ThoiGianThucHien", thoiGianThucHien);
 
-                        // Thêm vào bảng BaiDangTho
-                        string queryBaiDangTho = "INSERT INTO BaiDangTho (IDBaiDang, IDTho, GiaTien, ThoiGianThucHien) VALUES (@IDBaiDang, @IDTho, @GiaTien, @ThoiGianThucHien)";
-                        SqlCommand cmdBaiDangTho = new SqlCommand(queryBaiDangTho, conn, transaction);
-                        cmdBaiDangTho.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
-                        cmdBaiDangTho.Parameters.AddWithValue("@IDTho", 1); // Thay thế bằng ID thợ hợp lệ
-                        cmdBaiDangTho.Parameters.AddWithValue("@GiaTien", giaTien);
-                        cmdBaiDangTho.Parameters.AddWithValue("@ThoiGianThucHien", thoiGianThucHien);
-
-                        cmdBaiDangTho.ExecuteNonQuery(); // Thực thi truy vấn thêm vào bảng BaiDangTho
-
-                        // Xác nhận giao dịch
-                        transaction.Commit();
-                        MessageBox.Show("Đăng bài thành công!");
-                    }
-                    catch (Exception ex)
-                    {
-                        // Nếu có lỗi, hoàn tác giao dịch
-                        transaction.Rollback();
-                        MessageBox.Show("Lỗi khi đăng bài: " + ex.Message);
-                    }
+                    // Thực thi Stored Procedure
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Đăng bài thành công!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi kết nối đến cơ sở dữ liệu: " + ex.Message);
+                MessageBox.Show("Lỗi khi đăng bài: " + ex.Message);
             }
             finally
             {
@@ -107,20 +90,18 @@ namespace TheGioiTho.Controller.Tho
             {
                 conn.Open();
 
-                // Câu lệnh SQL để lấy thông tin thợ
-                string query = "SELECT HoTen, SoDienThoai, DiaChi FROM Tho WHERE IDTho = @IDTho"; // Giả định bạn có IDTho để lấy thông tin
+                // Sử dụng stored procedure để lấy thông tin thợ
+                SqlCommand cmd = new SqlCommand("sp_LayThongTinTho", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDTho", 1); // Thay IDTho bằng ID thực tế
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read()) // Nếu có kết quả
                 {
-                    cmd.Parameters.AddWithValue("@IDTho", 1); // Thay IDTho bằng ID thợ thực tế cần lấy thông tin
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read()) // Nếu có kết quả
-                    {
-                        txtTenTho.Text = reader["HoTen"].ToString();
-                        txtSoDienThoai.Text = reader["SoDienThoai"].ToString();
-                        txtDiaChi.Text = reader["DiaChi"].ToString();
-                    }
+                    txtTenTho.Text = reader["HoTen"].ToString();
+                    txtSoDienThoai.Text = reader["SoDienThoai"].ToString();
+                    txtDiaChi.Text = reader["DiaChi"].ToString();
                 }
             }
             catch (Exception ex)
@@ -143,7 +124,8 @@ namespace TheGioiTho.Controller.Tho
             try
             {
                 conn.Open();
-                string query = "SELECT IDLinhVuc, TenLinhVuc FROM LinhVuc"; // Truy vấn để lấy tất cả các lĩnh vực
+                // Sử dụng view để lấy tất cả các lĩnh vực
+                string query = "SELECT IDLinhVuc, TenLinhVuc FROM View_LinhVuc";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

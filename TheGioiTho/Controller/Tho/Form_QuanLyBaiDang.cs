@@ -15,7 +15,6 @@ namespace TheGioiTho.Controller.Tho
     public partial class Form_QuanLyBaiDang : Form
     {
         private bool isDataChanged = false; // Theo dõi thay đổi dữ liệu
-
         public Form_QuanLyBaiDang()
         {
             InitializeComponent();
@@ -87,16 +86,13 @@ namespace TheGioiTho.Controller.Tho
                 try
                 {
                     conn.Open();
-                    string query = "SELECT BaiDangTho.IDBaiDang, BaiDang.TieuDe, BaiDang.MoTa, LinhVuc.TenLinhVuc, BaiDangTho.GiaTien, BaiDangTho.ThoiGianThucHien, BaiDang.HinhAnh " +
-               "FROM BaiDangTho " +
-               "INNER JOIN BaiDang ON BaiDangTho.IDBaiDang = BaiDang.IDBaiDang " +
-               "INNER JOIN LinhVuc ON LinhVuc.IDLinhVuc = BaiDang.IDLinhVuc " +
-               "WHERE BaiDangTho.IDTho = @IDTho";
-
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand("sp_LayDanhSachBaiDang", conn))
                     {
-                        cmd.Parameters.AddWithValue("@IDTho", 1); // Thay IDTho bằng ID thợ thực tế cần lấy thông tin
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Thay IDTho bằng giá trị thực tế bạn cần lấy
+                        cmd.Parameters.AddWithValue("@IDTho", 1);
+
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         adapter.Fill(dt);
                     }
@@ -108,6 +104,7 @@ namespace TheGioiTho.Controller.Tho
             }
             return dt;
         }
+
 
 
 
@@ -127,12 +124,14 @@ namespace TheGioiTho.Controller.Tho
                 try
                 {
                     conn.Open();
-                    string query = "DELETE FROM BaiDangTho WHERE IDBaiDang = @IDBaiDang";
+                    string storedProcedure = "sp_XoaBaiDang"; // Tên stored procedure
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand(storedProcedure, conn))
                     {
-                        cmd.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        cmd.CommandType = CommandType.StoredProcedure; // Đặt loại command là stored procedure
+                        cmd.Parameters.AddWithValue("@IDBaiDang", idBaiDang); // Truyền tham số cho stored procedure
+
+                        int rowsAffected = cmd.ExecuteNonQuery(); // Thực thi stored procedure
 
                         if (rowsAffected > 0)
                         {
@@ -151,6 +150,7 @@ namespace TheGioiTho.Controller.Tho
             }
         }
 
+
         private void btnXoaBaiDang_Click(object sender, EventArgs e)
         {
             int idBaiDang = GetSelectedBaiDangId();
@@ -167,6 +167,8 @@ namespace TheGioiTho.Controller.Tho
             {
                 MessageBox.Show("Vui lòng chọn một bài đăng để xóa.");
             }
+
+            RefreshDataGrid();
         }
 
         private void dgvQuanLyBaiDang_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -208,49 +210,37 @@ namespace TheGioiTho.Controller.Tho
 
             using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
-                conn.Open();
-                using (SqlTransaction transaction = conn.BeginTransaction())
+                try
                 {
-                    try
+                    conn.Open();
+                    string storedProcedure = "sp_CapNhatBaiDang"; // Tên stored procedure
+
+                    using (SqlCommand cmd = new SqlCommand(storedProcedure, conn))
                     {
-                        // Cập nhật bảng BaiDang
-                        string updateBaiDangQuery =
-                            "UPDATE BaiDang SET TieuDe = @TieuDe, MoTa = @MoTa, HinhAnh = @HinhAnh, IDLinhVuc = @IDLinhVuc WHERE IDBaiDang = @IDBaiDang";
-                        using (SqlCommand cmd1 = new SqlCommand(updateBaiDangQuery, conn, transaction))
-                        {
-                            cmd1.Parameters.AddWithValue("@TieuDe", txtTieuDe.Text);
-                            cmd1.Parameters.AddWithValue("@MoTa", txtMoTa.Text);
-                            cmd1.Parameters.AddWithValue("@HinhAnh", imagePath);
-                            cmd1.Parameters.AddWithValue("@IDLinhVuc", idLinhVuc);
-                            cmd1.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
-                            cmd1.ExecuteNonQuery();
-                        }
+                        cmd.CommandType = CommandType.StoredProcedure; // Đặt loại command là stored procedure
 
-                        // Cập nhật bảng BaiDangTho
-                        string updateBaiDangThoQuery =
-                            "UPDATE BaiDangTho SET GiaTien = @GiaTien, ThoiGianThucHien = @ThoiGianThucHien WHERE IDBaiDang = @IDBaiDang";
-                        using (SqlCommand cmd2 = new SqlCommand(updateBaiDangThoQuery, conn, transaction))
-                        {
-                            cmd2.Parameters.AddWithValue("@GiaTien", decimal.Parse(txtGiaTien.Text));
-                            cmd2.Parameters.AddWithValue("@ThoiGianThucHien", txtThoiGianThucHien.Text);
-                            cmd2.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
-                            cmd2.ExecuteNonQuery();
-                        }
+                        // Truyền tham số cho stored procedure
+                        cmd.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
+                        cmd.Parameters.AddWithValue("@TieuDe", txtTieuDe.Text);
+                        cmd.Parameters.AddWithValue("@MoTa", txtMoTa.Text);
+                        cmd.Parameters.AddWithValue("@HinhAnh", imagePath);
+                        cmd.Parameters.AddWithValue("@IDLinhVuc", idLinhVuc);
+                        cmd.Parameters.AddWithValue("@GiaTien", decimal.Parse(txtGiaTien.Text));
+                        cmd.Parameters.AddWithValue("@ThoiGianThucHien", txtThoiGianThucHien.Text);
 
-                        transaction.Commit();
+                        // Thực thi stored procedure
+                        cmd.ExecuteNonQuery();
+
                         MessageBox.Show("Cập nhật bài đăng thành công!");
                         dgvQuanLyBaiDang.DataSource = LayDanhSachBaiDang(); // Cập nhật lại DataGridView
-
                         RefreshDataGrid();
                     }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        MessageBox.Show("Lỗi khi cập nhật bài đăng: " + ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi cập nhật bài đăng: " + ex.Message);
                 }
             }
-
         }
 
         private void RefreshDataGrid()
@@ -292,7 +282,7 @@ namespace TheGioiTho.Controller.Tho
                 try
                 {
                     conn.Open();
-                    string query = "SELECT IDLinhVuc, TenLinhVuc FROM LinhVuc";
+                    string query = "SELECT IDLinhVuc, TenLinhVuc FROM View_LinhVuc";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
