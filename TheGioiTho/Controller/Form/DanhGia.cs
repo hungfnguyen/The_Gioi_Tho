@@ -1,211 +1,50 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
 using System.Collections.Generic;
-using TheGioiTho.DAO;
-using TheGioiTho.Model;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using TheGioiTho.Config;
 
-namespace TheGioiTho.Controller
+namespace TheGioiTho
 {
     public partial class DanhGia : Form
     {
-        private readonly DanhGiaDAO danhGiaDAO;
-        private readonly int idNguoiDung;
-        private readonly int idCongViec;
-        private List<string> imagePaths;  // Danh sách đường dẫn ảnh
-        private const int MAX_IMAGES = 5;  // Số lượng ảnh tối đa
-        private static readonly string IMAGE_FOLDER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
-
-        public DanhGia(int idNguoiDung, int idCongViec)
+        public DanhGia()
         {
             InitializeComponent();
-            this.danhGiaDAO = new DanhGiaDAO();
-            this.idNguoiDung = idNguoiDung;
-            this.idCongViec = idCongViec;
-            this.imagePaths = new List<string>();
-            InitializeComboBox();
-        }
-        private void InitializeComboBox()
-        {
-            // Thêm các lựa chọn số sao vào ComboBox
-            cbSoSao.Items.Clear();
-            for (int i = 1; i <= 5; i++)
-            {
-                cbSoSao.Items.Add($"{i} ★");
-            }
-            cbSoSao.SelectedIndex = 4; // Mặc định chọn 5 sao
         }
 
-        private void ComboBoxDanhGia_SelectedIndexChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (cbSoSao.SelectedItem != null)
-            {
-                string selectedText = cbSoSao.SelectedItem.ToString();
-                int soSao = int.Parse(selectedText.Split(' ')[0]);
-                lblSao.Text = new string('★', soSao) + new string('☆', 5 - soSao);
-            }
+            String text1 = txtNhanXet1.Text;
+            String text2 = txtNhanXet2.Text;
+            DanhGiaTho(2,4,3, "Bình Thường");
         }
-        // ... Các phương thức khác giữ nguyên ...
-
-        private void btnThem_Click(object sender, EventArgs e)
+        private void DanhGiaTho(int ID_NguoiDung, int ID_CongViec, decimal SoSao, string NhanXet)
         {
-            if (imagePaths.Count >= MAX_IMAGES)
+            
+            using (SqlConnection connection = DBConnection.GetConnection())
             {
-                MessageBox.Show($"Chỉ được thêm tối đa {MAX_IMAGES} ảnh!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF";
-                openFileDialog.Multiselect = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    foreach (string sourceFile in openFileDialog.FileNames)
+                    connection.Open();
+                    string query = "EXEC DanhGiaTho " + ID_NguoiDung + ", " + ID_CongViec + ", " + SoSao + ", " + "'" + NhanXet + "'" + ";";
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        if (imagePaths.Count >= MAX_IMAGES) break;
-
-                        try
-                        {
-                            string fileName = $"DanhGia_{DateTime.Now:yyyyMMddHHmmss}_{Guid.NewGuid()}{Path.GetExtension(sourceFile)}";
-                            string destFile = Path.Combine(IMAGE_FOLDER, fileName);
-
-                            // Đảm bảo thư mục tồn tại
-                            if (!Directory.Exists(IMAGE_FOLDER))
-                            {
-                                Directory.CreateDirectory(IMAGE_FOLDER);
-                            }
-
-                            // Copy file ảnh
-                            File.Copy(sourceFile, destFile, true);
-                            imagePaths.Add(fileName); // Chỉ lưu tên file, không lưu đường dẫn đầy đủ
-
-                            // Thêm ảnh vào FlowLayoutPanel
-                            AddImageToPanel(destFile);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Lỗi khi thêm ảnh: {ex.Message}", "Lỗi",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        // Thực thi câu lệnh SQL
+                        SqlDataReader reader = command.ExecuteReader();
+                        MessageBox.Show("Đánh Giá Thành Công");
                     }
                 }
-            }
-        }
-
-
-        private void AddImageToPanel(string imagePath)
-        {
-            Panel imageContainer = new Panel
-            {
-                Width = 150,
-                Height = 150,
-                Margin = new Padding(5),
-                BackColor = Color.White
-            };
-            PictureBox pictureBox = new PictureBox
-            {
-                Width = 140,
-                Height = 120,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Image = Image.FromFile(imagePath),
-                Tag = Path.GetFileName(imagePath), // Chỉ lưu tên file trong Tag
-                Location = new Point(5, 5)
-            };
-            Button btnDelete = new Button
-            {
-                Text = "X",
-                Width = 25,
-                Height = 25,
-                BackColor = Color.Red,
-                ForeColor = Color.White,
-                Location = new Point(pictureBox.Width - 25, 0),
-                Tag = Path.GetFileName(imagePath), // Chỉ lưu tên file trong Tag
-                Parent = pictureBox
-            };
-            btnDelete.Click += (sender, e) =>
-            {
-                Button btn = sender as Button;
-                string fileName = btn.Tag.ToString();
-                string fullPath = Path.Combine(IMAGE_FOLDER, fileName);
-                imagePaths.Remove(fileName);
-                flpHinhAnh.Controls.Remove(imageContainer);
-                // Giải phóng tài nguyên
-                pictureBox.Image.Dispose();
-                if (File.Exists(fullPath))
+                catch (Exception ex)
                 {
-                    try { File.Delete(fullPath); }
-                    catch { /* Xử lý nếu không xóa được file */ }
-                }
-            };
-            imageContainer.Controls.Add(pictureBox);
-            flpHinhAnh.Controls.Add(imageContainer);
-        }
-
-        private void btnGui_Click(object sender, EventArgs e)
-        {
-            if (cbSoSao.SelectedIndex == -1)
-            {
-                MessageBox.Show("Vui lòng chọn số sao đánh giá!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                string selectedText = cbSoSao.SelectedItem.ToString();
-                int soSao = int.Parse(selectedText.Split(' ')[0]);
-
-                // Chuyển danh sách ảnh thành chuỗi, phân cách bằng dấu ;
-                string hinhAnh = string.Join(";", imagePaths);
-
-                var danhGia = new TheGioiTho.Model.DanhGia
-                {
-                    IDNguoiDung = this.idNguoiDung,
-                    IDLichHen = this.idCongViec,
-                    SoSao = soSao,
-                    NhanXet = txtNhanXet.Text.Trim(),
-                    HinhAnh = hinhAnh
-                };
-
-                if (danhGiaDAO.ThemDanhGia(danhGia))
-                {
-                    MessageBox.Show("Đánh giá thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Có lỗi xảy ra khi gửi đánh giá!", "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            // Giải phóng tài nguyên của tất cả các PictureBox
-            foreach (Control container in flpHinhAnh.Controls)
-            {
-                foreach (Control control in container.Controls)
-                {
-                    if (control is PictureBox pictureBox)
-                    {
-                        if (pictureBox.Image != null)
-                        {
-                            pictureBox.Image.Dispose();
-                        }
-                    }
+                    MessageBox.Show("Lỗi: " + ex.Message);
                 }
             }
         }

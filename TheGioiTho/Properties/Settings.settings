@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="conn" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=LAPTOP-M10LPRA9\CONGDON;Initial Catalog=TheGioiTho;Integrated Security=True;Trust Server Certificate=True</Value>
+      <Value Profile="(Default)">Data Source=LAPTOP-7H9D7KEU\CSDL_SQLSEVER;Initial Catalog=DoAnTheGioiTho1;User ID=sa;Password=haolkj123;Trust Server Certificate=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -25,8 +25,8 @@ namespace TheGioiTho.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-M10LPRA9\\CONGDON;Initial Catalog=TheGioiTho;Integrated Securit" +
-            "y=True;Trust Server Certificate=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-7H9D7KEU\\CSDL_SQLSEVER;Initial Catalog=DoAnTheGioiTho1;User ID" +
+            "=sa;Password=haolkj123;Trust Server Certificate=True")]
         public string conn {
             get {
                 return ((string)(this["conn"]));
