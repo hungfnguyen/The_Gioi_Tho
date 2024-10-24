@@ -47,27 +47,31 @@
             this.btnDangBai = new System.Windows.Forms.Button();
             this.cbChonCongViec = new System.Windows.Forms.ComboBox();
             this.btnQuanLyBaiDang = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnChonTep = new System.Windows.Forms.Button();
+            this.pictureBoxHinh = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHinh)).BeginInit();
             this.SuspendLayout();
             // 
             // txtDiaChi
             // 
-            this.txtDiaChi.Location = new System.Drawing.Point(70, 339);
+            this.txtDiaChi.Location = new System.Drawing.Point(109, 357);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(307, 22);
             this.txtDiaChi.TabIndex = 11;
             // 
             // txtSoDienThoai
             // 
-            this.txtSoDienThoai.Location = new System.Drawing.Point(70, 276);
+            this.txtSoDienThoai.Location = new System.Drawing.Point(109, 294);
             this.txtSoDienThoai.Name = "txtSoDienThoai";
             this.txtSoDienThoai.Size = new System.Drawing.Size(307, 22);
             this.txtSoDienThoai.TabIndex = 12;
             // 
             // txtTenTho
             // 
-            this.txtTenTho.Location = new System.Drawing.Point(70, 218);
+            this.txtTenTho.Location = new System.Drawing.Point(109, 236);
             this.txtTenTho.Name = "txtTenTho";
             this.txtTenTho.Size = new System.Drawing.Size(307, 22);
             this.txtTenTho.TabIndex = 13;
@@ -75,7 +79,7 @@
             // lblDiaDiemLamViec
             // 
             this.lblDiaDiemLamViec.AutoSize = true;
-            this.lblDiaDiemLamViec.Location = new System.Drawing.Point(67, 320);
+            this.lblDiaDiemLamViec.Location = new System.Drawing.Point(106, 338);
             this.lblDiaDiemLamViec.Name = "lblDiaDiemLamViec";
             this.lblDiaDiemLamViec.Size = new System.Drawing.Size(49, 16);
             this.lblDiaDiemLamViec.TabIndex = 7;
@@ -84,7 +88,7 @@
             // lblSoDienThoai
             // 
             this.lblSoDienThoai.AutoSize = true;
-            this.lblSoDienThoai.Location = new System.Drawing.Point(67, 257);
+            this.lblSoDienThoai.Location = new System.Drawing.Point(106, 275);
             this.lblSoDienThoai.Name = "lblSoDienThoai";
             this.lblSoDienThoai.Size = new System.Drawing.Size(92, 16);
             this.lblSoDienThoai.TabIndex = 8;
@@ -93,7 +97,7 @@
             // lblTenKhachHang
             // 
             this.lblTenKhachHang.AutoSize = true;
-            this.lblTenKhachHang.Location = new System.Drawing.Point(67, 199);
+            this.lblTenKhachHang.Location = new System.Drawing.Point(106, 217);
             this.lblTenKhachHang.Name = "lblTenKhachHang";
             this.lblTenKhachHang.Size = new System.Drawing.Size(58, 16);
             this.lblTenKhachHang.TabIndex = 4;
@@ -101,21 +105,21 @@
             // 
             // txtMoTa
             // 
-            this.txtMoTa.Location = new System.Drawing.Point(59, 65);
+            this.txtMoTa.Location = new System.Drawing.Point(59, 33);
             this.txtMoTa.Name = "txtMoTa";
             this.txtMoTa.Size = new System.Drawing.Size(307, 22);
             this.txtMoTa.TabIndex = 11;
             // 
             // txtThoiGianThucHien
             // 
-            this.txtThoiGianThucHien.Location = new System.Drawing.Point(59, 186);
+            this.txtThoiGianThucHien.Location = new System.Drawing.Point(59, 154);
             this.txtThoiGianThucHien.Name = "txtThoiGianThucHien";
             this.txtThoiGianThucHien.Size = new System.Drawing.Size(307, 22);
             this.txtThoiGianThucHien.TabIndex = 11;
             // 
             // txtGiaTien
             // 
-            this.txtGiaTien.Location = new System.Drawing.Point(59, 239);
+            this.txtGiaTien.Location = new System.Drawing.Point(59, 207);
             this.txtGiaTien.Name = "txtGiaTien";
             this.txtGiaTien.Size = new System.Drawing.Size(307, 22);
             this.txtGiaTien.TabIndex = 11;
@@ -123,7 +127,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(70, 16);
+            this.pictureBox1.Location = new System.Drawing.Point(109, 34);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(280, 165);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -133,7 +137,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 46);
+            this.label1.Location = new System.Drawing.Point(56, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 16);
             this.label1.TabIndex = 4;
@@ -142,7 +146,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(56, 108);
+            this.label2.Location = new System.Drawing.Point(56, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 16);
             this.label2.TabIndex = 4;
@@ -151,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(56, 167);
+            this.label3.Location = new System.Drawing.Point(56, 135);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(129, 16);
             this.label3.TabIndex = 4;
@@ -160,7 +164,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 220);
+            this.label4.Location = new System.Drawing.Point(56, 188);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 16);
             this.label4.TabIndex = 4;
@@ -169,6 +173,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.pictureBoxHinh);
+            this.panel1.Controls.Add(this.btnChonTep);
             this.panel1.Controls.Add(this.btnDangBai);
             this.panel1.Controls.Add(this.cbChonCongViec);
             this.panel1.Controls.Add(this.label1);
@@ -178,15 +184,15 @@
             this.panel1.Controls.Add(this.txtThoiGianThucHien);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtMoTa);
-            this.panel1.Location = new System.Drawing.Point(436, 46);
+            this.panel1.Location = new System.Drawing.Point(546, 46);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(454, 358);
+            this.panel1.Size = new System.Drawing.Size(454, 398);
             this.panel1.TabIndex = 15;
             // 
             // btnDangBai
             // 
             this.btnDangBai.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnDangBai.Location = new System.Drawing.Point(59, 291);
+            this.btnDangBai.Location = new System.Drawing.Point(59, 355);
             this.btnDangBai.Name = "btnDangBai";
             this.btnDangBai.Size = new System.Drawing.Size(307, 36);
             this.btnDangBai.TabIndex = 13;
@@ -197,7 +203,7 @@
             // cbChonCongViec
             // 
             this.cbChonCongViec.FormattingEnabled = true;
-            this.cbChonCongViec.Location = new System.Drawing.Point(59, 127);
+            this.cbChonCongViec.Location = new System.Drawing.Point(59, 95);
             this.cbChonCongViec.Name = "cbChonCongViec";
             this.cbChonCongViec.Size = new System.Drawing.Size(307, 24);
             this.cbChonCongViec.TabIndex = 12;
@@ -205,13 +211,38 @@
             // 
             // btnQuanLyBaiDang
             // 
-            this.btnQuanLyBaiDang.Location = new System.Drawing.Point(915, 59);
+            this.btnQuanLyBaiDang.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnQuanLyBaiDang.Location = new System.Drawing.Point(772, 3);
             this.btnQuanLyBaiDang.Name = "btnQuanLyBaiDang";
-            this.btnQuanLyBaiDang.Size = new System.Drawing.Size(271, 36);
+            this.btnQuanLyBaiDang.Size = new System.Drawing.Size(228, 37);
             this.btnQuanLyBaiDang.TabIndex = 16;
             this.btnQuanLyBaiDang.Text = "Quản Lý Bài Đăng";
-            this.btnQuanLyBaiDang.UseVisualStyleBackColor = true;
+            this.btnQuanLyBaiDang.UseVisualStyleBackColor = false;
             this.btnQuanLyBaiDang.Click += new System.EventHandler(this.btnQuanLyBaiDang_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // btnChonTep
+            // 
+            this.btnChonTep.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnChonTep.Location = new System.Drawing.Point(59, 246);
+            this.btnChonTep.Name = "btnChonTep";
+            this.btnChonTep.Size = new System.Drawing.Size(185, 23);
+            this.btnChonTep.TabIndex = 14;
+            this.btnChonTep.Text = "Chọn Hình Ảnh";
+            this.btnChonTep.UseVisualStyleBackColor = false;
+            this.btnChonTep.Click += new System.EventHandler(this.btnChonTep_Click);
+            // 
+            // pictureBoxHinh
+            // 
+            this.pictureBoxHinh.Location = new System.Drawing.Point(266, 246);
+            this.pictureBoxHinh.Name = "pictureBoxHinh";
+            this.pictureBoxHinh.Size = new System.Drawing.Size(100, 100);
+            this.pictureBoxHinh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxHinh.TabIndex = 15;
+            this.pictureBoxHinh.TabStop = false;
             // 
             // UC_DangBai
             // 
@@ -232,6 +263,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHinh)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,5 +288,8 @@
         private System.Windows.Forms.ComboBox cbChonCongViec;
         private System.Windows.Forms.Button btnDangBai;
         private System.Windows.Forms.Button btnQuanLyBaiDang;
+        private System.Windows.Forms.Button btnChonTep;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.PictureBox pictureBoxHinh;
     }
 }

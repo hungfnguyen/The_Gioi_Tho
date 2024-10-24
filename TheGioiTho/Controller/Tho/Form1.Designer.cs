@@ -39,6 +39,7 @@
             // 
             // btnTrangChu
             // 
+            this.btnTrangChu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnTrangChu.Location = new System.Drawing.Point(12, 21);
             this.btnTrangChu.Name = "btnTrangChu";
             this.btnTrangChu.Size = new System.Drawing.Size(105, 30);
@@ -49,6 +50,7 @@
             // 
             // btnDangBai
             // 
+            this.btnDangBai.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDangBai.Location = new System.Drawing.Point(114, 21);
             this.btnDangBai.Name = "btnDangBai";
             this.btnDangBai.Size = new System.Drawing.Size(105, 30);
@@ -59,6 +61,7 @@
             // 
             // btnLichHen
             // 
+            this.btnLichHen.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLichHen.Location = new System.Drawing.Point(215, 21);
             this.btnLichHen.Name = "btnLichHen";
             this.btnLichHen.Size = new System.Drawing.Size(105, 30);
@@ -69,6 +72,7 @@
             // 
             // btnDanhGia
             // 
+            this.btnDanhGia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDanhGia.Location = new System.Drawing.Point(315, 21);
             this.btnDanhGia.Name = "btnDanhGia";
             this.btnDanhGia.Size = new System.Drawing.Size(105, 30);
@@ -79,6 +83,7 @@
             // 
             // btnThongKe
             // 
+            this.btnThongKe.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnThongKe.Location = new System.Drawing.Point(417, 21);
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Size = new System.Drawing.Size(105, 30);
@@ -89,6 +94,7 @@
             // 
             // btnTaiKhoan
             // 
+            this.btnTaiKhoan.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnTaiKhoan.Location = new System.Drawing.Point(519, 21);
             this.btnTaiKhoan.Name = "btnTaiKhoan";
             this.btnTaiKhoan.Size = new System.Drawing.Size(105, 30);
@@ -103,6 +109,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1189, 462);
             this.panel1.TabIndex = 2;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Form1
             // 
@@ -118,6 +125,7 @@
             this.Controls.Add(this.btnTrangChu);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

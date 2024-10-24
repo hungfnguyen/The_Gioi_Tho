@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TheGioiTho.Config;
 
 namespace TheGioiTho.Controller.Tho
 {
@@ -18,8 +19,6 @@ namespace TheGioiTho.Controller.Tho
             InitializeComponent();
             SetupDataGridView();
         }
-
-        private SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True");
 
         private void dgvLichHen_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -36,7 +35,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn =  Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -139,7 +138,7 @@ namespace TheGioiTho.Controller.Tho
 
         private void ChapNhanCongViec(int idCongViec)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = "UPDATE CongViec SET TrangThaiCongViecTho = N'Chấp Nhận' WHERE IDCongViec = @IDCongViec";
@@ -154,7 +153,7 @@ namespace TheGioiTho.Controller.Tho
 
         private void TuChoiCongViec(int idCongViec)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = "UPDATE CongViec SET TrangThaiCongViecTho = N'Từ Chối' WHERE IDCongViec = @IDCongViec";
@@ -209,7 +208,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -246,7 +245,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -283,7 +282,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = @"
@@ -320,7 +319,7 @@ namespace TheGioiTho.Controller.Tho
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 conn.Open();
                 string query = @"

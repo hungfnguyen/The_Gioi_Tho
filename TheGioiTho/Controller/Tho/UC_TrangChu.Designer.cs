@@ -65,6 +65,7 @@
             this.dgvBaiDangNguoiDung.Name = "dgvBaiDangNguoiDung";
             this.dgvBaiDangNguoiDung.RowHeadersWidth = 51;
             this.dgvBaiDangNguoiDung.RowTemplate.Height = 24;
+            this.dgvBaiDangNguoiDung.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBaiDangNguoiDung.Size = new System.Drawing.Size(807, 456);
             this.dgvBaiDangNguoiDung.TabIndex = 0;
             this.dgvBaiDangNguoiDung.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBaiDangNguoiDung_CellClick);

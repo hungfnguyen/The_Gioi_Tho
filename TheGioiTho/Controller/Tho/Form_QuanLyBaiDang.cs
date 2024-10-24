@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -13,9 +14,12 @@ namespace TheGioiTho.Controller.Tho
 {
     public partial class Form_QuanLyBaiDang : Form
     {
+        private bool isDataChanged = false; // Theo dõi thay đổi dữ liệu
+
         public Form_QuanLyBaiDang()
         {
             InitializeComponent();
+            LoadLinhVuc();
         }
 
         private void dgvQuanLyBaiDang_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -25,21 +29,70 @@ namespace TheGioiTho.Controller.Tho
 
         private void Form_QuanLyBaiDang_Load(object sender, EventArgs e)
         {
-            dgvQuanLyBaiDang.DataSource = LayDanhSachBaiDang(); // Gán DataTable vào DataGridView
+            // Tải danh sách bài đăng
+            DataTable dataTable = LayDanhSachBaiDang();
+            dgvQuanLyBaiDang.DataSource = dataTable;
+
+            // Ẩn cột IDBaiDang
+            dgvQuanLyBaiDang.Columns["IDBaiDang"].Visible = false;
+            dgvQuanLyBaiDang.Columns["HinhAnh"].Visible = false; // Ẩn cột HinhAnh chứa đường dẫn
+
+            // Kiểm tra và thêm cột hình ảnh chỉ nếu nó chưa tồn tại
+            if (!dgvQuanLyBaiDang.Columns.Contains("HinhAnhDisplay"))
+            {
+                DataGridViewImageColumn imageColumn = new DataGridViewImageColumn
+                {
+                    Name = "HinhAnhDisplay", // Tên cột mới để hiển thị hình ảnh
+                    HeaderText = "Hình Ảnh", // Tiêu đề cột
+                    ImageLayout = DataGridViewImageCellLayout.Stretch // Đặt chế độ hiển thị hình ảnh to hơn
+                };
+                dgvQuanLyBaiDang.Columns.Add(imageColumn);
+            }
+
+            // Tăng chiều cao của các hàng để hiển thị hình ảnh lớn hơn
+            dgvQuanLyBaiDang.RowTemplate.Height = 150; // Chiều cao của hàng, tùy chỉnh theo nhu cầu
+
+            // Hiển thị hình ảnh trong DataGridView
+            foreach (DataGridViewRow row in dgvQuanLyBaiDang.Rows)
+            {
+                // Lấy đường dẫn hình ảnh từ DataTable
+                string imagePath = row.Cells["HinhAnh"].Value?.ToString(); // Lấy đường dẫn hình ảnh
+
+                if (!string.IsNullOrEmpty(imagePath) && System.IO.File.Exists(imagePath)) // Kiểm tra đường dẫn
+                {
+                    try
+                    {
+                        // Đọc hình ảnh từ đường dẫn và gán vào cột hình ảnh
+                        Image img = Image.FromFile(imagePath);
+                        row.Cells["HinhAnhDisplay"].Value = img;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Không thể tải hình ảnh: {ex.Message}");
+                        row.Cells["HinhAnhDisplay"].Value = null; // Nếu có lỗi, gán giá trị null
+                    }
+                }
+                else
+                {
+                    row.Cells["HinhAnhDisplay"].Value = null; // Nếu không có hình ảnh, để null
+                }
+            }
         }
 
         private DataTable LayDanhSachBaiDang()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 try
                 {
                     conn.Open();
-                    string query = "SELECT BaiDangTho.IDBaiDang, BaiDang.TieuDe, BaiDang.MoTa, BaiDangTho.GiaTien, BaiDangTho.ThoiGianThucHien " +
-                                   "FROM BaiDangTho " +
-                                   "INNER JOIN BaiDang ON BaiDangTho.IDBaiDang = BaiDang.IDBaiDang " +
-                                   "WHERE BaiDangTho.IDTho = @IDTho";
+                    string query = "SELECT BaiDangTho.IDBaiDang, BaiDang.TieuDe, BaiDang.MoTa, LinhVuc.TenLinhVuc, BaiDangTho.GiaTien, BaiDangTho.ThoiGianThucHien, BaiDang.HinhAnh " +
+               "FROM BaiDangTho " +
+               "INNER JOIN BaiDang ON BaiDangTho.IDBaiDang = BaiDang.IDBaiDang " +
+               "INNER JOIN LinhVuc ON LinhVuc.IDLinhVuc = BaiDang.IDLinhVuc " +
+               "WHERE BaiDangTho.IDTho = @IDTho";
+
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -57,6 +110,7 @@ namespace TheGioiTho.Controller.Tho
         }
 
 
+
         private int GetSelectedBaiDangId()
         {
             if (dgvQuanLyBaiDang.SelectedRows.Count > 0)
@@ -68,7 +122,7 @@ namespace TheGioiTho.Controller.Tho
 
         private void XoaBaiDang(int idBaiDang)
         {
-            using (SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True"))
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
             {
                 try
                 {
@@ -112,6 +166,159 @@ namespace TheGioiTho.Controller.Tho
             else
             {
                 MessageBox.Show("Vui lòng chọn một bài đăng để xóa.");
+            }
+        }
+
+        private void dgvQuanLyBaiDang_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Kiểm tra xem có chọn đúng hàng
+            {
+                DataGridViewRow row = dgvQuanLyBaiDang.Rows[e.RowIndex];
+
+                // Gán dữ liệu vào các control
+                txtTieuDe.Text = row.Cells["TieuDe"].Value.ToString();
+                txtMoTa.Text = row.Cells["MoTa"].Value.ToString();
+                txtThoiGianThucHien.Text = row.Cells["ThoiGianThucHien"].Value.ToString();
+                txtGiaTien.Text = row.Cells["GiaTien"].Value.ToString();
+
+                // Giả sử cbChonCongViec hiển thị tên công việc từ LinhVuc
+                cbChonCongViec.Text = row.Cells["TenLinhVuc"].Value.ToString();
+            }
+        }
+
+        private void btnChinhSua_Click(object sender, EventArgs e)
+        {
+            int idBaiDang = GetSelectedBaiDangId();
+            if (idBaiDang == -1)
+            {
+                MessageBox.Show("Vui lòng chọn một bài đăng để chỉnh sửa.");
+                return;
+            }
+
+            int idLinhVuc = Convert.ToInt32(cbChonCongViec.SelectedValue);
+
+            // Lấy đường dẫn ảnh từ TextBox
+            string imagePath = txtHinhAnhDuongDan.Text;
+
+            // Nếu không có ảnh mới, giữ nguyên ảnh cũ
+            if (string.IsNullOrEmpty(imagePath))
+            {
+                imagePath = dgvQuanLyBaiDang.SelectedRows[0].Cells["HinhAnh"].Value?.ToString();
+            }
+
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                conn.Open();
+                using (SqlTransaction transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // Cập nhật bảng BaiDang
+                        string updateBaiDangQuery =
+                            "UPDATE BaiDang SET TieuDe = @TieuDe, MoTa = @MoTa, HinhAnh = @HinhAnh, IDLinhVuc = @IDLinhVuc WHERE IDBaiDang = @IDBaiDang";
+                        using (SqlCommand cmd1 = new SqlCommand(updateBaiDangQuery, conn, transaction))
+                        {
+                            cmd1.Parameters.AddWithValue("@TieuDe", txtTieuDe.Text);
+                            cmd1.Parameters.AddWithValue("@MoTa", txtMoTa.Text);
+                            cmd1.Parameters.AddWithValue("@HinhAnh", imagePath);
+                            cmd1.Parameters.AddWithValue("@IDLinhVuc", idLinhVuc);
+                            cmd1.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
+                            cmd1.ExecuteNonQuery();
+                        }
+
+                        // Cập nhật bảng BaiDangTho
+                        string updateBaiDangThoQuery =
+                            "UPDATE BaiDangTho SET GiaTien = @GiaTien, ThoiGianThucHien = @ThoiGianThucHien WHERE IDBaiDang = @IDBaiDang";
+                        using (SqlCommand cmd2 = new SqlCommand(updateBaiDangThoQuery, conn, transaction))
+                        {
+                            cmd2.Parameters.AddWithValue("@GiaTien", decimal.Parse(txtGiaTien.Text));
+                            cmd2.Parameters.AddWithValue("@ThoiGianThucHien", txtThoiGianThucHien.Text);
+                            cmd2.Parameters.AddWithValue("@IDBaiDang", idBaiDang);
+                            cmd2.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        MessageBox.Show("Cập nhật bài đăng thành công!");
+                        dgvQuanLyBaiDang.DataSource = LayDanhSachBaiDang(); // Cập nhật lại DataGridView
+
+                        RefreshDataGrid();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Lỗi khi cập nhật bài đăng: " + ex.Message);
+                    }
+                }
+            }
+
+        }
+
+        private void RefreshDataGrid()
+        {
+            dgvQuanLyBaiDang.DataSource = LayDanhSachBaiDang(); // Tải lại dữ liệu
+
+            // Ẩn cột không cần thiết
+            dgvQuanLyBaiDang.Columns["IDBaiDang"].Visible = false;
+            dgvQuanLyBaiDang.Columns["HinhAnh"].Visible = false;
+
+            // Hiển thị hình ảnh trong DataGridView
+            foreach (DataGridViewRow row in dgvQuanLyBaiDang.Rows)
+            {
+                string imagePath = row.Cells["HinhAnh"].Value?.ToString();
+                if (!string.IsNullOrEmpty(imagePath) && System.IO.File.Exists(imagePath))
+                {
+                    try
+                    {
+                        row.Cells["HinhAnhDisplay"].Value = Image.FromFile(imagePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Không thể tải hình ảnh: {ex.Message}");
+                        row.Cells["HinhAnhDisplay"].Value = null;
+                    }
+                }
+                else
+                {
+                    row.Cells["HinhAnhDisplay"].Value = null;
+                }
+            }
+        }
+
+
+        private void LoadLinhVuc()
+        {
+            using (SqlConnection conn = Config.DBConnection.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT IDLinhVuc, TenLinhVuc FROM LinhVuc";
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    cbChonCongViec.DataSource = dt;
+                    cbChonCongViec.DisplayMember = "TenLinhVuc";  // Hiển thị tên lĩnh vực
+                    cbChonCongViec.ValueMember = "IDLinhVuc";     // Lưu IDLinhVuc
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi tải danh sách lĩnh vực: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnChonAnh_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = ofd.FileName;
+                    txtHinhAnhDuongDan.Text = selectedImagePath; // Nếu muốn hiện đường dẫn trong TextBox
+                    pbHinhAnh.Image = Image.FromFile(selectedImagePath); // Hiển thị ảnh trong PictureBox
+                }
             }
         }
     }

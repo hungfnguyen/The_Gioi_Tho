@@ -13,13 +13,15 @@ namespace TheGioiTho.Controller.Tho
 {
     public partial class UC_DangBai : UserControl
     {
+        private SqlConnection conn = Config.DBConnection.GetConnection();
+        string hinhAnh; // Giả sử bạn có txtHinhAnh
 
         private void btnDangBai_Click(object sender, EventArgs e)
         {
             // Lấy dữ liệu từ các trường nhập liệu
             string tieuDe = ""; // Giả sử bạn có txtTieuDe
             string moTa = txtMoTa.Text.Trim();
-            string hinhAnh = ""; // Giả sử bạn có txtHinhAnh
+            
             int idLinhVuc = (int)cbChonCongViec.SelectedValue; // Lấy ID lĩnh vực đã chọn
             //int idTho = GetIDTho(); // Hàm lấy ID của thợ (nếu cần)
             string thoiGianThucHien = txtThoiGianThucHien.Text.Trim();
@@ -89,7 +91,7 @@ namespace TheGioiTho.Controller.Tho
 
         }
 
-        private SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True");
+ 
 
         public UC_DangBai()
         {
@@ -168,6 +170,37 @@ namespace TheGioiTho.Controller.Tho
 
             // Hiển thị form
             formQuanLyBaiDang.Show(); // Sử dụng Show() nếu bạn muốn mở form không đồng bộ
+        }
+
+        private void btnChonTep_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                // Thiết lập các thuộc tính cho OpenFileDialog
+                openFileDialog.Title = "Chọn tệp ảnh";
+                openFileDialog.Filter = "Tệp hình ảnh|*.jpg;*.jpeg;*.png;*.bmp|Tất cả các tệp|*.*"; // Chỉ cho phép chọn các loại tệp ảnh
+                openFileDialog.InitialDirectory = "C:\\"; // Thư mục mặc định khi mở hộp thoại
+
+                // Hiển thị hộp thoại và kiểm tra nếu người dùng chọn tệp
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Lấy đường dẫn tệp đã chọn
+                    string filePath = openFileDialog.FileName;
+
+                    // Gán đường dẫn vào biến hinhAnh
+                    hinhAnh = filePath;
+
+                    // Nếu muốn, có thể tải và hiển thị hình ảnh
+                    try
+                    {
+                        pictureBoxHinh.Image = Image.FromFile(filePath); // Giả sử bạn có một PictureBox tên pictureBoxHinh
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi tải ảnh: " + ex.Message);
+                    }
+                }
+            }
         }
     }
 }

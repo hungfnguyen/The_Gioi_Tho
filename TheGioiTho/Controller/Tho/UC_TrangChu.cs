@@ -13,7 +13,7 @@ namespace TheGioiTho.Controller.Tho
 {
     public partial class UC_TrangChu : UserControl
     {
-        private SqlConnection conn = new SqlConnection("Data Source=LAPTOP-DTKDJMOS\\SQLEXPRESS;Initial Catalog=TheGioiTho1;Integrated Security=True");
+        private SqlConnection conn = Config.DBConnection.GetConnection();
         private int idNguoiDung; // Biến để lưu ID người dùng
 
 
@@ -60,7 +60,28 @@ namespace TheGioiTho.Controller.Tho
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
+
                 dgvBaiDangNguoiDung.DataSource = dt;
+
+
+                // Cập nhật cột HinhAnh để hiển thị hình ảnh
+                foreach (DataGridViewRow row in dgvBaiDangNguoiDung.Rows)
+                {
+                    string imagePath = row.Cells["HinhAnh"].Value?.ToString(); // Lấy giá trị từ cột HinhAnh
+                    if (!string.IsNullOrEmpty(imagePath))
+                    {
+                        try
+                        {
+                            // Đảm bảo đường dẫn hình ảnh chính xác và chuyển đổi thành Image
+                            row.Cells["HinhAnh"].Value = Image.FromFile(imagePath); // Chuyển đổi đường dẫn thành hình ảnh
+                        }
+                        catch (Exception)
+                        {
+                            row.Cells["HinhAnh"].Value = null; // Nếu không thể load hình, gán giá trị null
+                        }
+                    }
+                }
+
 
                 // Ẩn cột IDNguoiDung
                 dgvBaiDangNguoiDung.Columns["IDNguoiDung"].Visible = false;
