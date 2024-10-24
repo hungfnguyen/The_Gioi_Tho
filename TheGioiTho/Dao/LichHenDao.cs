@@ -15,27 +15,11 @@ namespace TheGioiTho.Dao
         {
             List<LichHen> danhSachLichHen = new List<LichHen>();
             string query = @"
-        SELECT 
-            cv.IDCongViec as IDLichHen,
-            lv.TenLinhVuc as LinhVuc,
-            nd.HoTen as Ten,
-            nd.SoDienThoai as SDT,
-            bdn.NgayThoDen as LichHenDen,
-            bdn.GioThoDen as Gio,
-            bd.MoTa as GhiChu,
-            bdt.GiaTien,
-            cv.TrangThaiCongViecTho,
-            cv.TrangThaiCongViecNguoiDung,
-            bdt.IDTho
-        FROM CongViec cv
-        INNER JOIN BaiDang bd ON cv.IDBaiDang = bd.IDBaiDang
-        INNER JOIN BaiDangNguoiDung bdn ON bd.IDBaiDang = bdn.IDBaiDang
-        INNER JOIN BaiDangTho bdt ON bd.IDBaiDang = bdt.IDBaiDang
-        INNER JOIN LinhVuc lv ON bd.IDLinhVuc = lv.IDLinhVuc
-        INNER JOIN NguoiDung nd ON bdn.IDNguoiDung = nd.IDNguoiDung
-        WHERE bdn.IDNguoiDung = @IDNguoiDung
-        AND (@TrangThai IS NULL OR cv.TrangThaiCongViecNguoiDung = @TrangThai)
-        ORDER BY cv.IDCongViec DESC";
+            SELECT *
+            FROM View_DanhSachLichHen
+            WHERE IDNguoiDung = @IDNguoiDung
+            AND (@TrangThai IS NULL OR TrangThaiCongViecNguoiDung = @TrangThai)
+            ORDER BY IDLichHen DESC";
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {

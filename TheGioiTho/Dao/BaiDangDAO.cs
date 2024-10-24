@@ -112,17 +112,8 @@ namespace TheGioiTho.DAO
 
         public (BaiDang, BaiDangNguoiDung, NguoiDung) GetBaiDangChiTietById(int idBaiDang)
         {
-            string query = @"
-                SELECT 
-                    bd.IDBaiDang, bd.IDLinhVuc, bd.TieuDe, bd.MoTa, bd.HinhAnh,
-                    bdn.IDNguoiDung, bdn.NgayThoDen, bdn.GioThoDen,
-                    nd.TaiKhoan, nd.HoTen, nd.SoDienThoai, nd.DiaChi
-                FROM 
-                    BaiDang bd
-                    INNER JOIN BaiDangNguoiDung bdn ON bd.IDBaiDang = bdn.IDBaiDang
-                    INNER JOIN NguoiDung nd ON bdn.IDNguoiDung = nd.IDNguoiDung
-                WHERE 
-                    bd.IDBaiDang = @IDBaiDang";
+            // Thay đổi tên view
+            string query = "SELECT * FROM vw_BaiDangNguoiDungChiTiet WHERE IDBaiDang = @IDBaiDang";
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {
@@ -172,12 +163,8 @@ namespace TheGioiTho.DAO
         public List<BaiDang> GetAllBaiDang()
         {
             List<BaiDang> danhSachBaiDang = new List<BaiDang>();
-            string query = @"
-            SELECT bd.IDBaiDang, bd.IDLinhVuc, bd.TieuDe, bd.MoTa, bd.HinhAnh,
-                   bdn.IDNguoiDung, bdn.NgayThoDen, bdn.GioThoDen
-            FROM BaiDang bd
-            LEFT JOIN BaiDangNguoiDung bdn ON bd.IDBaiDang = bdn.IDBaiDang
-            ORDER BY bd.IDBaiDang DESC";
+            // Thay đổi tên view
+            string query = "SELECT * FROM vw_DanhSachBaiDangNguoiDung ORDER BY IDBaiDang DESC";
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {
